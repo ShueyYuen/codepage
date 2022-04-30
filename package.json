@@ -1,0 +1,33 @@
+{
+  "name": "vite",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx",
+    "prettier": "prettier --write ."
+  },
+  "dependencies": {
+    "@vueuse/core": "^8.2.4",
+    "emmet-monaco-es": "^5.1.0",
+    "monaco-editor": "^0.33.0",
+    "pinia": "^2.0.0-rc.10",
+    "vue": "^3.2.25",
+    "vue-i18n": "^9.2.0-beta.34",
+    "vue-router": "^4.0.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.0",
+    "@vue/compiler-sfc": "^3.0.5",
+    "eslint": "^8.12.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.5.0",
+    "less": "^4.1.2",
+    "less-loader": "^10.2.0",
+    "prettier": "^2.6.2",
+    "vite": "^2.9.0",
+    "vite-plugin-monaco-editor": "^1.0.10"
+  }
+}

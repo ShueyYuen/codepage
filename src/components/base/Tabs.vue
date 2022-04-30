@@ -1,0 +1,170 @@
+<template>
+  <div v-if="tabs.length" :class="['switch-tabs', `switch-tabs__${type}`]">
+    <template v-for="(tab, i) in tabs" :key="tab.value" class="disable">
+      <template v-if="tab.render && typeof tab.render === 'function'">
+        <Render :renderMethod="tab.render"></Render>
+      </template>
+      <template v-else-if="tab.slot && typeof tab.slot === 'string'">
+        <slot :name="tab.slot" v-bind="{ tab }"></slot>
+      </template>
+      <div v-else @click="handleClick(tab)"
+        :class="{
+          'switch-tabs__item': true,
+          gap: tab.value === 'gap',
+          disable: tab.disable,
+          active : tab.value === modelValue,
+          pre : i === selectedIndex - 1,
+          badge: tab.badge
+        }">
+        {{ tab.label }}
+      </div>
+    </template>
+  </div>
+</template>
+
+<script setup>
+import Render from './Render.js';
+import { computed } from 'vue';
+
+const props = defineProps({
+  modelValue: {
+    type: String,
+    required: true,
+  },
+  tabs: {
+    type: Array,
+    required: true,
+    default: () => []
+  },
+  type: {
+    type: String,
+    default: 'border'
+  }
+});
+
+const emits = defineEmits(['update:modelValue']);
+
+const handleClick =  function(tab) {
+  if (tab.disable) {
+    tab.disablePrompt && tab.disablePrompt(tab);
+  } else {
+    emits('update:modelValue', tab.value);
+  }
+}
+
+const selectedIndex = computed(() =>
+  props.tabs.findIndex((v) => v.value === props.modelValue));
+</script>
+
+<style lang="less" scoped>
+.switch-tabs {
+  display: flex;
+  :deep(&__item) {
+    flex-basis: 0;
+    padding: 0 25px;
+    position: relative;
+    color: hsla(0,0%,100%,.6);
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  & .active {
+    color: #fff;
+  }
+  .gap {
+    pointer-events: none;
+    flex-grow: 2;
+  }
+}
+:deep(.disable) {
+  opacity: .8;
+  cursor: not-allowed;
+}
+.switch-tabs__border {
+  background: linear-gradient(#0e172e 0 50%, #1a284d 50% 100%) ;
+  :deep(.switch-tabs__item) {
+    height: 24px;
+    line-height: 24px;
+    font-size: 16px;
+    background: #0e172e;
+    border: 0;
+    box-shadow: 0px 1px hsla(0,0%,100%,.1);
+    
+    &:first-child.active {
+      box-shadow: inset 0 1px hsla(0,0%,100%,.1);
+    }
+
+    &:first-of-type {
+      border-bottom-left-radius: 0;
+    }
+    &:last-of-type {
+      border-bottom-right-radius: 0;
+    }
+    &.badge::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      top: 4px;
+      margin-left: 2px;
+      border-radius: 3px;
+      background: #FF6161;
+      box-shadow: 0px 1px 2px 0px rgba(255, 97, 97, 0.5);
+    }
+  }
+  &>.switch-tabs__item.active {
+    background: #1a284d;
+    border-radius: 4px 4px 0 0;
+    box-shadow: none;
+  }
+
+  :deep(.active+.switch-tabs__item) {
+    border-bottom-left-radius: 4px;
+  }
+  .active~.switch-tabs__item {
+    border: none;
+  }
+  &>.switch-tabs__item.pre {
+    border-bottom-right-radius: 4px;
+  }
+}
+
+.switch-tabs__line {
+  :deep(.switch-tabs__item) {
+    height: 32px;
+    line-height: 32px;
+    font-size: 16px;
+    box-shadow: inset 0px -1px 0px 0px rgba(255, 255, 255, 0.6);
+  }
+  &>.switch-tabs__item.active {
+    font-weight: bold;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 1px;
+      height: 2px;
+      width: 43px;
+      left: 50%;
+      background: #fff;
+      transform: translateX(-50%);
+    }
+  }
+}
+
+.switch-tabs__flat {
+  margin: 0 8px;
+  border-radius: 4px;
+  background: #ffffff1a;
+  :deep(.switch-tabs__item) {
+    padding: 4px 8px;
+    line-height: 24px;
+    font-size: 16px;
+    color: #fffc;
+  }
+  .active {
+    background: #fffc;
+    border-radius: 4px;
+    color: #223461;
+  }
+}
+</style>
