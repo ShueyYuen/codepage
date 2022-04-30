@@ -23,11 +23,18 @@ console.log(
   height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+}
+.splitpanes {
+  flex-grow: 1;
   .editor,
   iframe {
-    flex-grow: 1;
+    width: 100%;
+    height: 100%;
   }
-
+  iframe {
+    background: #fff;
+  }
 }
 * {
   padding: 0;

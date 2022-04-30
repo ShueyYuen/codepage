@@ -14,7 +14,7 @@ const codeStore = useCodeStore();
 onMounted(() => {
   emmetCSS(monaco);
   editor = monaco.editor.create(document.getElementById('css-editor'), {
-    value: '',//编辑器初始显示文字
+    value: codeStore.css,//编辑器初始显示文字
     language:'css',//语言支持自行查阅demo
     automaticLayout: true,//自动布局
     theme:'vs-dark' //官方自带三种主题vs, hc-black, or vs-dark

@@ -1,3 +1,3 @@
 export default {
-  file: 'File'
+  result: 'Result'
 }

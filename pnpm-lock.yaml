@@ -14,6 +14,7 @@ specifiers:
   monaco-editor: ^0.33.0
   pinia: ^2.0.0-rc.10
   prettier: ^2.6.2
+  splitpanes: ^3.1.1
   vite: ^2.9.0
   vite-plugin-monaco-editor: ^1.0.10
   vue: ^3.2.25
@@ -25,6 +26,7 @@ dependencies:
   emmet-monaco-es: registry.npmmirror.com/emmet-monaco-es/5.1.0_monaco-editor@0.33.0
   monaco-editor: registry.npmmirror.com/monaco-editor/0.33.0
   pinia: registry.npmmirror.com/pinia/2.0.13_vue@3.2.33
+  splitpanes: registry.npmmirror.com/splitpanes/3.1.1
   vue: registry.npmmirror.com/vue/3.2.33
   vue-i18n: registry.npmmirror.com/vue-i18n/9.2.0-beta.35_vue@3.2.33
   vue-router: registry.npmmirror.com/vue-router/4.0.14_vue@3.2.33
@@ -1643,6 +1645,12 @@ packages:
     resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==, registry: http://10.151.3.175:7001/, tarball: https://registry.npmmirror.com/sourcemap-codec/-/sourcemap-codec-1.4.8.tgz}
     name: sourcemap-codec
     version: 1.4.8
+
+  registry.npmmirror.com/splitpanes/3.1.1:
+    resolution: {integrity: sha512-VUkxDJfIGSvTM/fm/+OSrx8ha9URwE/9B8FPvfzoBuAxVELIHBWpsfnJXIXv77zVwuex//QQL4kTU9SDBPeHjA==, registry: http://10.151.3.175:7001/, tarball: https://registry.npmmirror.com/splitpanes/-/splitpanes-3.1.1.tgz}
+    name: splitpanes
+    version: 3.1.1
+    dev: false
 
   registry.npmmirror.com/strip-ansi/6.0.1:
     resolution: {integrity: sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==, registry: http://10.151.3.175:7001/, tarball: https://registry.npmmirror.com/strip-ansi/-/strip-ansi-6.0.1.tgz}

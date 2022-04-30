@@ -39,6 +39,10 @@ const props = defineProps({
   type: {
     type: String,
     default: 'border'
+  },
+  cling: {
+    type: Boolean,
+    default: false
   }
 });
 
@@ -48,7 +52,10 @@ const handleClick =  function(tab) {
   if (tab.disable) {
     tab.disablePrompt && tab.disablePrompt(tab);
   } else {
-    emits('update:modelValue', tab.value);
+    if (props.cling && tab.value === props.modelValue)
+      emits('update:modelValue', '');
+    else
+      emits('update:modelValue', tab.value);
   }
 }
 
@@ -67,6 +74,7 @@ const selectedIndex = computed(() =>
     text-align: center;
     cursor: pointer;
     white-space: nowrap;
+    user-select: none;
   }
   & .active {
     color: #fff;
@@ -83,10 +91,10 @@ const selectedIndex = computed(() =>
 .switch-tabs__border {
   background: linear-gradient(#0e172e 0 50%, #1a284d 50% 100%) ;
   :deep(.switch-tabs__item) {
-    height: 24px;
-    line-height: 24px;
-    font-size: 16px;
-    background: #0e172e;
+    height: 26px;
+    line-height: 26px;
+    font-size: 18px;
+    background: #1e1e1e;
     border: 0;
     box-shadow: 0px 1px hsla(0,0%,100%,.1);
     

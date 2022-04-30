@@ -8,9 +8,9 @@ While this project uses Vue.js, Vite supports many popular JS frameworks. [See a
 
 Deploy your own Vite project with Vercel.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/vercel/tree/main/examples/vite&template=vite)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/ShueyYuen/codepage)
 
-_Live Example: https://vite-vue-template.vercel.app_
+_Live Example: https://codepage.vercel.app
 
 ### How We Created This Example
 
@@ -27,3 +27,5 @@ You can deploy your new Vite project with a single command from your terminal us
 ```shell
 $ vercel
 ```
+
+split: https://antoniandre.github.io/splitpanes/

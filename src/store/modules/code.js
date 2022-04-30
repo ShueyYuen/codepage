@@ -22,5 +22,11 @@ export const useCodeStore = defineStore({
     setHead(data){
       this.head = data;
     },
+    setDefault(data) {
+      this.css = data.css ?? '';
+      this.html = data.html ?? '';
+      this.js = data.js ?? '';
+      this.head = data.head ?? '';
+    }
   },
 })

@@ -1,4 +1,5 @@
-import { h, ref, createApp, onMounted, onBeforeUpdate, onActivated } from "vue"
+import { h, ref, onMounted, onBeforeUpdate } from "vue"
+import { useDebounceFn } from '@vueuse/core'
 
 export default {
   name: "RenderIFrame",
@@ -39,9 +40,10 @@ export default {
       iframeScript.value = document.createElement("script");
       iframeScript.value.innerHTML = props.js;
       iframeBody.value.appendChild(iframeScript.value);
-    }
+    };
+    const debounceReloadView = useDebounceFn(reloadView, 1500);
     onMounted(reloadView);
-    onActivated(reloadView);
-    return () => h("iframe", { ref: iframeRef })
+    onBeforeUpdate(debounceReloadView);
+    return () => h("iframe", { 'frameborder': '0', ref: iframeRef, })
   }
 }
