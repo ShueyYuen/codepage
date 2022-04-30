@@ -4,7 +4,6 @@ specifiers:
   '@vitejs/plugin-vue': ^2.3.0
   '@vue/compiler-sfc': ^3.0.5
   '@vueuse/core': ^8.2.4
-  emmet: ^2.3.6
   emmet-monaco-es: ^5.1.0
   eslint: ^8.12.0
   eslint-config-prettier: ^8.5.0
@@ -23,7 +22,6 @@ specifiers:
 
 dependencies:
   '@vueuse/core': registry.npmmirror.com/@vueuse/core/8.3.1_vue@3.2.33
-  emmet: registry.npmmirror.com/emmet/2.3.6
   emmet-monaco-es: registry.npmmirror.com/emmet-monaco-es/5.1.0_monaco-editor@0.33.0
   monaco-editor: registry.npmmirror.com/monaco-editor/0.33.0
   pinia: registry.npmmirror.com/pinia/2.0.13_vue@3.2.33
