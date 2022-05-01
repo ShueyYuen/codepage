@@ -1,3 +1,4 @@
 export default {
-  result: 'Result'
+  result: 'Result',
+  setting: 'Setting',
 }

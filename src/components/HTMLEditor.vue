@@ -4,7 +4,7 @@
 
 <script setup>
 import * as monaco from 'monaco-editor';
-import { onMounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 import { useCodeStore } from '@/store/modules/code.js';
 import { emmetHTML } from "emmet-monaco-es";
 
@@ -22,5 +22,9 @@ onMounted(() => {
   editor.onDidChangeModelContent(() => {
     codeStore.setHTML(editor.getValue());
   })
-})
+});
+
+onUnmounted(() => {
+  editor.dispose();
+});
 </script>

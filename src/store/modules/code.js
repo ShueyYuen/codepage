@@ -7,6 +7,9 @@ export const useCodeStore = defineStore({
     html: '',
     js: '',
     head: '',
+    cssLinks: [],
+    jsLinks: [],
+    cssPre: '',
   }),
   getters: {},
   actions: {

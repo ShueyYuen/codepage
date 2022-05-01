@@ -1,10 +1,7 @@
 <template>
   <div v-if="tabs.length" :class="['switch-tabs', `switch-tabs__${type}`]">
     <template v-for="(tab, i) in tabs" :key="tab.value" class="disable">
-      <template v-if="tab.render && typeof tab.render === 'function'">
-        <Render :renderMethod="tab.render"></Render>
-      </template>
-      <template v-else-if="tab.slot && typeof tab.slot === 'string'">
+      <template v-if="tab.slot && typeof tab.slot === 'string'">
         <slot :name="tab.slot" v-bind="{ tab }"></slot>
       </template>
       <div v-else @click="handleClick(tab)"
@@ -23,7 +20,6 @@
 </template>
 
 <script setup>
-import Render from './Render.js';
 import { computed } from 'vue';
 
 const props = defineProps({
@@ -89,11 +85,11 @@ const selectedIndex = computed(() =>
   cursor: not-allowed;
 }
 .switch-tabs__border {
-  background: linear-gradient(#0e172e 0 50%, #1a284d 50% 100%) ;
+  background: linear-gradient(#0e172e 0 50%, #36519e 50% 100%) ;
   :deep(.switch-tabs__item) {
     height: 26px;
     line-height: 26px;
-    font-size: 18px;
+    font-size: 14px;
     background: #1e1e1e;
     border: 0;
     box-shadow: 0px 1px hsla(0,0%,100%,.1);
@@ -121,7 +117,7 @@ const selectedIndex = computed(() =>
     }
   }
   &>.switch-tabs__item.active {
-    background: #1a284d;
+    background: #36519e;
     border-radius: 4px 4px 0 0;
     box-shadow: none;
   }
@@ -138,41 +134,26 @@ const selectedIndex = computed(() =>
 }
 
 .switch-tabs__line {
+  flex-direction: column;
+  border-right: 1px solid #444;
   :deep(.switch-tabs__item) {
     height: 32px;
     line-height: 32px;
-    font-size: 16px;
-    box-shadow: inset 0px -1px 0px 0px rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    text-align: right;
+    padding: 0 10px;
   }
   &>.switch-tabs__item.active {
-    font-weight: bold;
     &::after {
       content: '';
       position: absolute;
-      bottom: 1px;
-      height: 2px;
-      width: 43px;
-      left: 50%;
+      right: -1px;
+      top: 4px;
+      width: 2px;
+      height: 24px;
       background: #fff;
-      transform: translateX(-50%);
+      // transform: translateX(-50%);
     }
-  }
-}
-
-.switch-tabs__flat {
-  margin: 0 8px;
-  border-radius: 4px;
-  background: #ffffff1a;
-  :deep(.switch-tabs__item) {
-    padding: 4px 8px;
-    line-height: 24px;
-    font-size: 16px;
-    color: #fffc;
-  }
-  .active {
-    background: #fffc;
-    border-radius: 4px;
-    color: #223461;
   }
 }
 </style>

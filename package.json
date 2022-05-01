@@ -10,13 +10,15 @@
   },
   "dependencies": {
     "@vueuse/core": "^8.2.4",
+    "axios": "^0.27.2",
     "emmet-monaco-es": "^5.1.0",
     "monaco-editor": "^0.33.0",
     "pinia": "^2.0.0-rc.10",
     "splitpanes": "^3.1.1",
     "vue": "^3.2.25",
     "vue-i18n": "^9.2.0-beta.34",
-    "vue-router": "^4.0.13"
+    "vue-router": "^4.0.13",
+    "wasm-brotli": "^2.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.0",

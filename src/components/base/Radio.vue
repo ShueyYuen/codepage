@@ -34,19 +34,18 @@ const handleClick =  function() {
 .radio {
   height: 20px;
   line-height: 20px;
-  font-size: 16px;
-  padding: 3px 15px;
+  font-size: 14px;
+  margin: 3px 0;
+  padding: 0 15px;
   user-select: none;
   color: #fff8;
 }
-
 .radio__border {
-  border-radius: 2px;
+  border-radius: 10px;
   background: #1e1e1e;
 }
-
 .active {
-  background: #1a284d;
+  background: #36519e;
   color: #fff;
 }
 </style>

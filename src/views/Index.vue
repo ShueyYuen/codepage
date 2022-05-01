@@ -1,8 +1,11 @@
 <template>
   <Tabs v-model="currentTab" :tabs="tabs" :cling="showResult">
     <template #operation>
-      <Radio v-model="showResult" :disabled="!currentTab">{{ t('result') }}</Radio>
-      <ShareIcon></ShareIcon>
+      <div class="operation-group">
+        <Radio v-model="showResult" :disabled="!currentTab">{{ t('result') }}</Radio>
+        <SettingModel></SettingModel>
+        <ShareIcon></ShareIcon>
+      </div>
     </template>
   </Tabs>
   <splitpanes @resize="editorSize = $event[0].size">
@@ -32,11 +35,18 @@ import 'splitpanes/dist/splitpanes.css';
 import ShareIcon from '@/components/ShareIcon.vue';
 import { UnicodeDecodeB64 } from '@/utils/tool.js';
 import { useCodeStore } from '@/store/modules/code.js';
+import SettingModel from '../components/SettingModel.vue';
 
 const componentMap = {
   js: JSEditor,
   html: HTMLEditor,
   css: CSSEditor,
+}
+
+const cssMap = {
+  '': 'CSS',
+  scss: 'SCSS',
+  less: 'LESS',
 }
 
 const searchParams = new URLSearchParams(window.location.search);
@@ -53,9 +63,8 @@ const editorDisplaySize = computed(() =>
 const tabs = computed(() => [
   { label: 'JavaScript', value: 'js', },
   { label: 'HTML', value: 'html', },
-  { label: 'CSS', value: 'css', },
-  { value: 'gap' },
-  { slot: 'operation' },
+  { label: cssMap[codeStore.cssPre], value: 'css', },
+  { value: 'gap' }, { slot: 'operation' },
 ]);
 const componentName = computed(() => componentMap[currentTab.value]);
 </script>
@@ -74,19 +83,34 @@ const componentName = computed(() => componentMap[currentTab.value]);
   background: grey;
   margin-left: -1px;
   position: relative;
+  transition: all .4s ease;
   &::after,
   &::before {
     content: '';
     position: absolute;
-    background: #1a284d;
+    background: #3f62c2;
     height: 50px;
     top: 50%;
     transform: translateY(-50%);
     right: 1px;
     width: 1px;
+    transition: all .4s ease;
   }
   &::before {
     left: 1px;
   }
+  &:hover {
+    background: #3f62c2;
+    &::after,
+    &::before {
+      background: #fff;
+    }
+  }
+}
+.operation-group {
+  background: #1e1e1e;
+  height: 26px;
+  display: flex;
+  cursor: pointer;
 }
 </style>
