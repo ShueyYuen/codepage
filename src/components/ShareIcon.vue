@@ -1,6 +1,6 @@
 <template>
 <router-link :to="shareUrl" replace @click="handleClick(shareUrl)">
-  <i class="codeicon codeicon-share"/>
+  <Icons type="share" />
 </router-link>
 </template>
 
@@ -10,6 +10,7 @@ import { useClipboard, useWebNotification } from '@vueuse/core';
 import { useCodeStore } from '@/store/modules/code.js';
 import { b64EncodeUnicode } from '../utils/tool.js';
 import { useRoute } from 'vue-router';
+import Icons from '@/components/base/Icons.vue';
 
 const codeStore = useCodeStore();
 
@@ -36,21 +37,10 @@ const shareUrl = computed(() => {
       css: codeStore.css,
       html: codeStore.html,
       js: codeStore.js,
+      head: codeStore.head,
+      jses: codeStore.jsLinks,
+      csses: codeStore.cssLinks,
+      pre: codeStore.cssPre,
     })) }};
 });
 </script>
-
-<style lang="less" scoped>
-.codeicon {
-  line-height: 26px;
-  font-size: 16px;
-  color: #fff;
-}
-a {
-  cursor: pointer;
-  height: 26px;
-  padding: 0 10px;
-  background: #1e1e1e;
-  text-decoration: none;
-}
-</style>

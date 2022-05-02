@@ -66,7 +66,7 @@ const selectedIndex = computed(() =>
     flex-basis: 0;
     padding: 0 25px;
     position: relative;
-    color: hsla(0,0%,100%,.6);
+    color: var(--deactive);
     text-align: center;
     cursor: pointer;
     white-space: nowrap;
@@ -85,18 +85,13 @@ const selectedIndex = computed(() =>
   cursor: not-allowed;
 }
 .switch-tabs__border {
-  background: linear-gradient(#0e172e 0 50%, #36519e 50% 100%) ;
+  background: linear-gradient(var(--background) 0 50%, #36519e 50% 100%);
   :deep(.switch-tabs__item) {
     height: 26px;
     line-height: 26px;
     font-size: 14px;
-    background: #1e1e1e;
+    background: var(--background);
     border: 0;
-    box-shadow: 0px 1px hsla(0,0%,100%,.1);
-    
-    &:first-child.active {
-      box-shadow: inset 0 1px hsla(0,0%,100%,.1);
-    }
 
     &:first-of-type {
       border-bottom-left-radius: 0;

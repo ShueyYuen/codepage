@@ -30,6 +30,9 @@ export const useCodeStore = defineStore({
       this.html = data.html ?? '';
       this.js = data.js ?? '';
       this.head = data.head ?? '';
+      this.jsLinks = data.jses ?? [];
+      this.cssLinks = data.csses ?? [];
+      this.cssPre = data.pre ?? '';
     }
   },
 })

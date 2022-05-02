@@ -1,9 +1,20 @@
 <template>
+<div class="app-container">
   <Tabs v-model="currentTab" :tabs="tabs" :cling="showResult">
     <template #operation>
       <div class="operation-group">
         <Radio v-model="showResult" :disabled="!currentTab">{{ t('result') }}</Radio>
         <SettingModel></SettingModel>
+        <Icons type="refresh" @click="bus.emit('refresh')"></Icons>
+        <Icons :type="preferStore.theme" @click="preferStore.switchTheme()"></Icons>
+        <a download="index.html"
+          :href="`data:text/plain;charset=utf-8,${encodeURIComponent(content)}`">
+          <Icons type="download"></Icons>
+        </a>
+        <Icons type="fullscreen" @click="bus.emit('fullscreen')"></Icons>
+        <a href="https://github.com/ShueyYuen/codepage" target="_blank">
+          <Icons type="github"></Icons>
+        </a>
         <ShareIcon></ShareIcon>
       </div>
     </template>
@@ -15,27 +26,31 @@
       </keep-alive>
     </pane>
     <pane min-size="20" :size="100 - editorDisplaySize" v-if="showResult">
-      <Result></Result>
+      <RenderIframe></RenderIframe>
     </pane>
   </splitpanes>
+</div>
 </template>
 
 <script setup>
 import { computed, ref, watch } from 'vue';
 import { useRoute } from "vue-router";
 import Tabs from '@/components/base/Tabs.vue';
+import Icons from '@/components/base/Icons.vue';
 import CSSEditor from '@/components/CSSEditor.vue';
 import HTMLEditor from '@/components/HTMLEditor.vue';
 import JSEditor from '@/components/JSEditor.vue';
-import Result from '@/components/Result.vue';
+import RenderIframe from '@/components/RenderIframe.js';
 import Radio from '@/components/base/Radio.vue';
 import { t } from '@/lang/index.js';
+import bus from '@/utils/bus.js';
 import { Splitpanes, Pane } from 'splitpanes';
 import 'splitpanes/dist/splitpanes.css';
 import ShareIcon from '@/components/ShareIcon.vue';
 import { UnicodeDecodeB64 } from '@/utils/tool.js';
-import { useCodeStore } from '@/store/modules/code.js';
+import { useCodeStore, usePreferStore } from '@/store/index.js';
 import SettingModel from '../components/SettingModel.vue';
+import content from '@/components/result.js';
 
 const componentMap = {
   js: JSEditor,
@@ -50,10 +65,13 @@ const cssMap = {
 }
 
 const searchParams = new URLSearchParams(window.location.search);
+const codeStore = useCodeStore();
 const loadCode = JSON.parse(
   UnicodeDecodeB64(searchParams.get('code') ?? '') || '{}');
-const codeStore = useCodeStore();
 codeStore.setDefault(loadCode);
+const preferStore = usePreferStore();
+const theme = searchParams.get('theme') ?? 'dark';
+preferStore.setTheme(theme);
 
 const showResult = ref(false);
 const currentTab = ref('js');
@@ -70,6 +88,10 @@ const componentName = computed(() => componentMap[currentTab.value]);
 </script>
 
 <style lang="less" scoped>
+.app-container {
+  width: 100%;
+  height: 100%;
+}
 .content {
   flex-grow: 1;
   display: flex;
@@ -108,7 +130,7 @@ const componentName = computed(() => componentMap[currentTab.value]);
   }
 }
 .operation-group {
-  background: #1e1e1e;
+  background: var(--background);
   height: 26px;
   display: flex;
   cursor: pointer;

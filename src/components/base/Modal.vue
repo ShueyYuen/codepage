@@ -1,13 +1,17 @@
 <template>
   <teleport to="body">
-    <div class="code-modal" v-show="visible">
-      <div
-        v-if="mask"
-        @click="handleClose"
-        class="code-modal__mask"
-      ></div>
-      <slot class="code-modal__container"></slot>
-    </div>
+    <transition name="custom-classes" :duration="100"
+      enter-active-class="animate__animated animate__fadeInUp"
+      leave-active-class="animate__animated animate__fadeOutDown">
+      <div class="code-modal" v-show="visible">
+        <div
+          v-if="mask"
+          @click="handleClose"
+          class="code-modal__mask"
+        ></div>
+        <slot class="code-modal__container"></slot>
+      </div>
+    </transition>
   </teleport>
 </template>
 
@@ -16,22 +20,16 @@ import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
   visible: {
-    // 控制对话框是否显示，可使用 v-model 双向绑定数据
     type: Boolean,
     default: false
   },
   mask: {
-    // 控制对话框是否显示，可使用 v-model 双向绑定数据
     type: Boolean,
     default: true
   },
 });
-
 const emits = defineEmits(['update:visible']);
-
-const handleClose = () => {
-  emits('update:visible', false);
-}
+const handleClose = () => emits('update:visible', false);
 </script>
 <style lang="less" scoped>
 .code-modal {

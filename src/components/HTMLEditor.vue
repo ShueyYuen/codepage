@@ -4,12 +4,19 @@
 
 <script setup>
 import * as monaco from 'monaco-editor';
-import { onMounted, onUnmounted } from 'vue';
-import { useCodeStore } from '@/store/modules/code.js';
+import { onMounted, onUnmounted, watch } from 'vue';
+import { useCodeStore, usePreferStore } from '@/store/index.js';
 import { emmetHTML } from "emmet-monaco-es";
 
 let editor = null;
 const codeStore = useCodeStore();
+
+const preferStore = usePreferStore();
+watch(() => preferStore.theme, () => {
+  editor.updateOptions({
+    theme: preferStore.editorTheme,
+  });
+});
 
 onMounted(() => {
   emmetHTML(monaco);
@@ -17,7 +24,7 @@ onMounted(() => {
     value: codeStore.html,//编辑器初始显示文字
     language:'html',//语言支持自行查阅demo
     automaticLayout: true,//自动布局
-    theme:'vs-dark' //官方自带三种主题vs, hc-black, or vs-dark
+    theme: preferStore.editorTheme,
   });
   editor.onDidChangeModelContent(() => {
     codeStore.setHTML(editor.getValue());

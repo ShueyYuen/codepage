@@ -1,6 +1,17 @@
 <script setup>
-const version = "1.0.0";
-const buildTime = "2022.04.03";
+import { ref } from 'vue';
+import { usePreferStore } from '@/store/modules/preference.js';
+import { useFullscreen } from '@vueuse/core';
+import bus from '@/utils/bus'
+
+const preferStore = usePreferStore();
+const element = ref(null);
+
+const { isFullscreen, enter, exit, toggle } = useFullscreen(element);
+bus.on('fullscreen', toggle);
+
+const version = "1.0.4";
+const buildTime = "2022.05.03";
 console.log(
   `%c Release Build Info 
   %cVersion			v${version}
@@ -11,7 +22,7 @@ console.log(
 </script>
 
 <template>
-  <router-view />
+  <router-view :class="preferStore.theme" ref="element"/>
 </template>
 
 <style lang="less">
@@ -24,6 +35,16 @@ console.log(
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+.dark {
+  --background: #1e1e1e;
+  --deactive: #fffa;
+  --active: #fff;
+}
+.light {
+  --background: #fffffe;
+  --deactive: #000a;
+  --active: #000;
 }
 .splitpanes {
   flex-grow: 1;
@@ -39,5 +60,8 @@ console.log(
 * {
   padding: 0;
   margin: 0;
+}
+a {
+  text-decoration: none;
 }
 </style>

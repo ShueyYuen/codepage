@@ -36,13 +36,13 @@ const handleClick =  function() {
   line-height: 20px;
   font-size: 14px;
   margin: 3px 0;
-  padding: 0 15px;
+  padding: 0 10px;
   user-select: none;
   color: #fff8;
 }
 .radio__border {
-  border-radius: 10px;
-  background: #1e1e1e;
+  border-radius: 8px;
+  background: #36519e55;
 }
 .active {
   background: #36519e;

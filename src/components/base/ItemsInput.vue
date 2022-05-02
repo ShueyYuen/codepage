@@ -28,15 +28,16 @@ const emits = defineEmits(['update:modelValue']);
 const list = ref([]);
 
 watch(props.modelValue, () => {
-  const addLength = list.value.reduce((t,c) => c.value ? c : c + 1, 0) || 1;
-  list.value = props.modelValue.map(v => { value: v })
+  const addLength = list.value.reduce((t,c) => c.value ? t : t + 1, 0)
+    || props.modelValue.length ? 0 : 1;
+  list.value = props.modelValue.map(v => ({ value: v }))
     .concat(Array(addLength).fill({ value: '' }));
 }, { immediate: true });
 
-const handleDelete = (idx) => list.value.splice(idx, 1);
-const handleAdd = () => list.value.push({value: ''});
 const blurd = () => emits('update:modelValue',
   list.value.map(v => v.value).filter(v => v));
+const handleDelete = (idx) => list.value.splice(idx, 1) && blurd();
+const handleAdd = () => list.value.push({value: ''});
 </script>
 
 <style lang="less">

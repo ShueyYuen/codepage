@@ -1,31 +1,15 @@
-# Vite
+# CodePage
 
-This directory is a brief example of a Vite/Vue.js site that can be deployed to Vercel with zero configuration.
-
-While this project uses Vue.js, Vite supports many popular JS frameworks. [See all the supported frameworks](https://vitejs.dev/guide/#scaffolding-your-first-vite-project).
+This project provide a simple and codespan-like web page to display your web code.
 
 ## Deploy Your Own
 
-Deploy your own Vite project with Vercel.
+Deploy your own codepage project with Vercel.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/ShueyYuen/codepage)
 
 _Live Example: https://codepage.vercel.app
 
-### How We Created This Example
+### Dependence
 
-To get started with Vue.js deployed with Vercel, you can use Vite (https://vitejs.dev/guide/#scaffolding-your-first-vite-project) to initialize the project:
-
-```shell
-$ yarn create @vitejs/app
-```
-
-### Deploying From Your Terminal
-
-You can deploy your new Vite project with a single command from your terminal using [Vercel CLI](https://vercel.com/download):
-
-```shell
-$ vercel
-```
-
-split: https://antoniandre.github.io/splitpanes/
+splitpanes: https://antoniandre.github.io/splitpanes/
