@@ -73,8 +73,10 @@ const preferStore = usePreferStore();
 const theme = searchParams.get('theme') ?? 'dark';
 preferStore.setTheme(theme);
 
-const showResult = ref(false);
-const currentTab = ref('js');
+const showTab = searchParams.get('tab') ?? 'result';
+const showResult = ref(showTab === 'result');
+const currentTab = ref(showTab === 'result' ? '' : showTab);
+
 const editorSize = ref(50);
 const editorDisplaySize = computed(() =>
   currentTab.value ? editorSize.value : 0);
