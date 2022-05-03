@@ -13,3 +13,7 @@ _Live Example: https://codepage.vercel.app
 ### Dependence
 
 splitpanes: https://antoniandre.github.io/splitpanes/
+
+### References
+
+https://joyofcode.xyz/create-a-coding-sandbox

@@ -5,9 +5,8 @@ import { useFullscreen } from '@vueuse/core';
 import bus from '@/utils/bus'
 
 const preferStore = usePreferStore();
-const element = ref(null);
 
-const { isFullscreen, enter, exit, toggle } = useFullscreen(element);
+const { isFullscreen, enter, exit, toggle } = useFullscreen(document.body);
 bus.on('fullscreen', toggle);
 
 const version = "1.0.5";
@@ -22,7 +21,7 @@ console.log(
 </script>
 
 <template>
-  <router-view :class="preferStore.theme" ref="element"/>
+  <router-view :class="preferStore.theme"/>
 </template>
 
 <style lang="less">

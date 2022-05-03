@@ -1,35 +1,33 @@
 <template>
-<div class="app-container">
-  <Tabs v-model="currentTab" :tabs="tabs" :cling="showResult">
-    <template #operation>
-      <div class="operation-group">
-        <Radio v-model="showResult" :disabled="!currentTab">{{ t('result') }}</Radio>
-        <SettingModel></SettingModel>
-        <Icons type="refresh" @click="bus.emit('refresh')"></Icons>
-        <Icons :type="preferStore.theme" @click="preferStore.switchTheme()"></Icons>
-        <a download="index.html"
-          :href="`data:text/plain;charset=utf-8,${encodeURIComponent(content)}`">
-          <Icons type="download"></Icons>
-        </a>
-        <Icons type="fullscreen" @click="bus.emit('fullscreen')"></Icons>
-        <a href="https://github.com/ShueyYuen/codepage" target="_blank">
-          <Icons type="github"></Icons>
-        </a>
-        <ShareIcon></ShareIcon>
-      </div>
-    </template>
-  </Tabs>
-  <splitpanes @resize="editorSize = $event[0].size">
-    <pane min-size="20" :class="{ collapse: !currentTab }" :size="editorDisplaySize">
-      <keep-alive>
-        <component :is="componentName"></component>
-      </keep-alive>
-    </pane>
-    <pane min-size="20" :size="100 - editorDisplaySize" v-if="showResult">
-      <RenderIframe></RenderIframe>
-    </pane>
-  </splitpanes>
-</div>
+<Tabs v-model="currentTab" :tabs="tabs" :cling="showResult">
+  <template #operation>
+    <div class="operation-group">
+      <Radio v-model="showResult" :disabled="!currentTab">{{ t('result') }}</Radio>
+      <SettingModel></SettingModel>
+      <Icons type="refresh" @click="bus.emit('refresh')"></Icons>
+      <Icons :type="preferStore.theme" @click="preferStore.switchTheme()"></Icons>
+      <a download="index.html"
+        :href="`data:text/plain;charset=utf-8,${encodeURIComponent(content)}`">
+        <Icons type="download"></Icons>
+      </a>
+      <Icons type="fullscreen" @click="bus.emit('fullscreen')"></Icons>
+      <a href="https://github.com/ShueyYuen/codepage" target="_blank">
+        <Icons type="github"></Icons>
+      </a>
+      <ShareIcon></ShareIcon>
+    </div>
+  </template>
+</Tabs>
+<splitpanes @resize="editorSize = $event[0].size">
+  <pane min-size="20" :class="{ collapse: !currentTab }" :size="editorDisplaySize">
+    <keep-alive>
+      <component :is="componentName"></component>
+    </keep-alive>
+  </pane>
+  <pane min-size="20" :size="100 - editorDisplaySize" v-if="showResult">
+    <RenderIframe></RenderIframe>
+  </pane>
+</splitpanes>
 </template>
 
 <script setup>
