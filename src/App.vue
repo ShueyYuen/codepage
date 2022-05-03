@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { watch } from 'vue';
 import { usePreferStore } from '@/store/modules/preference.js';
 import { useFullscreen } from '@vueuse/core';
 import bus from '@/utils/bus'
@@ -8,6 +8,10 @@ const preferStore = usePreferStore();
 
 const { isFullscreen, enter, exit, toggle } = useFullscreen(document.body);
 bus.on('fullscreen', toggle);
+
+watch(() => preferStore.theme, () => {
+  document.body.setAttribute('class', preferStore.theme);
+}, { immediate: true });
 
 const version = "1.0.5";
 const buildTime = "2022.05.03";
@@ -21,7 +25,7 @@ console.log(
 </script>
 
 <template>
-  <router-view :class="preferStore.theme"/>
+  <router-view/>
 </template>
 
 <style lang="less">
