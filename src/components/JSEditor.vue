@@ -26,7 +26,7 @@ onMounted(() => {
   });
   editor.onDidChangeModelContent(() => {
     codeStore.setJS(editor.getValue());
-  })
+  });
 });
 
 onUnmounted(() => {

@@ -4,40 +4,10 @@ import content from './result.js'
 import bus from '@/utils/bus.js';
 export default {
   name: "RenderIFrame",
-  props: {
-    css: {
-      type: String,
-      default: ""
-    },
-    head: {
-      type: String,
-      default: ""
-    },
-    html: {
-      type: String,
-      default: ""
-    },
-    js: {
-      type: String,
-      default: ""
-    },
-    head: {
-      type: String,
-      default: ""
-    },
-    csses: {
-      type: Array,
-      default: () => [],
-    },
-    jses: {
-      type: Array,
-      default: () => [],
-    },
-  },
-  setup(props, { slots }) {
+  setup() {
     const views = ref('');
     const reloadView = () => views.value = content.value;
-    const debounceReloadView = useDebounceFn(reloadView, 1500);
+    const debounceReloadView = useDebounceFn(reloadView, 2000);
     onMounted(reloadView);
     watch(content, debounceReloadView);
     bus.on('refresh', reloadView);

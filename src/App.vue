@@ -10,7 +10,7 @@ const element = ref(null);
 const { isFullscreen, enter, exit, toggle } = useFullscreen(element);
 bus.on('fullscreen', toggle);
 
-const version = "1.0.4";
+const version = "1.0.5";
 const buildTime = "2022.05.03";
 console.log(
   `%c Release Build Info 

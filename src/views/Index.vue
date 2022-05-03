@@ -102,7 +102,7 @@ const componentName = computed(() => componentMap[currentTab.value]);
 }
 :deep(.splitpanes__splitter) {
   min-width: 5px;
-  background: grey;
+  background: rgb(201, 201, 201);
   margin-left: -1px;
   position: relative;
   transition: all .4s ease;

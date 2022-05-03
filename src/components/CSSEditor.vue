@@ -13,9 +13,7 @@ let editor = null;
 
 const codeStore = useCodeStore();
 watch(() => codeStore.cssPre, () => {
-  editor.updateOptions({
-    language: codeStore.cssPre || 'css',
-  });
+  monaco.editor.setModelLanguage(editor.getModel(), codeStore.cssPre || 'css');
 });
 
 const preferStore = usePreferStore();

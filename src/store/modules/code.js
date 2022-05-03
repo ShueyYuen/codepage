@@ -1,4 +1,7 @@
 import { defineStore } from 'pinia'
+import less from 'less';
+
+const sass = new window.Sass();
 
 export const useCodeStore = defineStore({
   id: 'code',
@@ -10,8 +13,23 @@ export const useCodeStore = defineStore({
     cssLinks: [],
     jsLinks: [],
     cssPre: '',
+    compiledCss: '',
   }),
-  getters: {},
+  getters: {
+    config: (state) => {
+      const result = {
+        css: state.css,
+        html: state.html,
+        js: state.js,
+        head: state.head,
+        jses: state.jsLinks,
+        csses: state.cssLinks,
+        pre: state.cssPre,
+      }
+      Object.keys(result).forEach(v => result[v]?.length || delete result[v]);
+      return result;
+    }
+  },
   actions: {
     setCSS(data){
       this.css = data;
@@ -33,6 +51,29 @@ export const useCodeStore = defineStore({
       this.jsLinks = data.jses ?? [];
       this.cssLinks = data.csses ?? [];
       this.cssPre = data.pre ?? '';
+    },
+    compileStyle() {
+      switch(this.cssPre) {
+        case 'less':
+          less.render(this.css)
+            .then((output) => {
+              this.compiledCss = output.css;
+            }).catch((e) => {
+              console.log(e.message,
+                `error at: line: ${e.line}, column: ${e.column}`);
+            });
+          break;
+        case 'scss':
+          sass.compile(this.css, (output) => {
+            if (output.text)
+              this.compiledCss = output.text;
+            else console.log(output.message,
+              `error at: line: ${output.line}, column: ${output.column}`);
+          });
+          break;
+        default:
+          this.compiledCss = this.css;
+      }
     }
   },
-})
+});

@@ -9,12 +9,10 @@ import { computed, ref, watch } from 'vue';
 import { useClipboard, useWebNotification } from '@vueuse/core';
 import { useCodeStore } from '@/store/modules/code.js';
 import { b64EncodeUnicode } from '../utils/tool.js';
-import { useRoute } from 'vue-router';
 import Icons from '@/components/base/Icons.vue';
 
 const codeStore = useCodeStore();
 
-const route = useRoute();
 const handleClick = (path) => {
   const source = ref(`${window.location.origin}/?code=${path.query.code}`);
   const { text, copy, copied } = useClipboard({ source });
@@ -33,14 +31,6 @@ const handleClick = (path) => {
 
 const shareUrl = computed(() => {
   return { path: '/',query: {
-    code: b64EncodeUnicode(JSON.stringify({
-      css: codeStore.css,
-      html: codeStore.html,
-      js: codeStore.js,
-      head: codeStore.head,
-      jses: codeStore.jsLinks,
-      csses: codeStore.cssLinks,
-      pre: codeStore.cssPre,
-    })) }};
+    code: b64EncodeUnicode(JSON.stringify(codeStore.config)) }};
 });
 </script>

@@ -1,7 +1,14 @@
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import { useCodeStore } from '@/store/index.js';
+import { useDebounceFn } from '@vueuse/core';
+import bus from '@/utils/bus.js';
 
 const codeStore = useCodeStore();
+
+const debounceCompileToCss = useDebounceFn(codeStore.compileStyle, 1500);
+bus.on('refresh', codeStore.compileStyle);
+watch(() => codeStore.css, debounceCompileToCss);
+watch(() => codeStore.cssPre, codeStore.compileStyle);
 
 export default computed(() =>
 `<!DOCTYPE html>
@@ -11,7 +18,7 @@ export default computed(() =>
     ${codeStore.cssLinks.map(v => `<link rel="stylesheet" href="${v}"/>`).join('\n    ')}
     ${codeStore.jsLinks.map(v => `<script src="${v}"></script>`).join('\n    ')}
     <style>
-      ${codeStore.css}
+      ${codeStore.compiledCss}
     </style>
   </head>
   <body>
