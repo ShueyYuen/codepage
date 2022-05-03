@@ -1,4 +1,4 @@
-function loadJs(src) {
+function loadJavaScript(src) {
   return new Promise((resolve, reject) => {
     let script = document.createElement("script");
     script.type = "text/javascript";
@@ -14,4 +14,4 @@ function loadJs(src) {
   });
 }
 
-export default loadJs;
+export default loadJavaScript;

@@ -7,6 +7,10 @@ const codeStore = useCodeStore();
 
 const debounceCompileToCss = useDebounceFn(codeStore.compileStyle, 1500);
 bus.on('refresh', codeStore.compileStyle);
+bus.on('compile', (type) => {
+  if ((type ?? '') === codeStore.cssPre)
+    codeStore.compileStyle();
+});
 watch(() => codeStore.css, debounceCompileToCss);
 watch(() => codeStore.cssPre, codeStore.compileStyle);
 

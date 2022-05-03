@@ -1,12 +1,17 @@
 import { defineStore } from 'pinia'
-import loadJs from '@/utils/load';
+import loadJavaScript from '@/utils/load';
+import bus from '@/utils/bus.js';
 
 let sass = null;
-loadJs('/scss/sass.js').then(() => {
+loadJavaScript('/scss/sass.js').then(() => {
   sass = new window.Sass();
+  console.log('install Sass successfully');
+  bus.emit('compile', 'sass');
 });
-
-loadJs('https://cdn.jsdelivr.net/npm/less@4');
+loadJavaScript('https://cdn.jsdelivr.net/npm/less@4').then(() => {
+  console.log('install Less successfully');
+  bus.emit('compile', 'less');
+});
 
 export const useCodeStore = defineStore({
   id: 'code',
@@ -60,7 +65,7 @@ export const useCodeStore = defineStore({
     compileStyle() {
       switch(this.cssPre) {
         case 'less':
-          window.less.render(this.css)
+          window.less?.render(this.css)
             .then((output) => {
               this.compiledCss = output.css;
             }).catch((e) => {
