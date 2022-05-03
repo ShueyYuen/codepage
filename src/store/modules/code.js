@@ -1,7 +1,12 @@
 import { defineStore } from 'pinia'
-import less from 'less';
+import loadJs from '@/utils/load';
 
-const sass = new window.Sass();
+let sass = null;
+loadJs('/scss/sass.js').then(() => {
+  sass = new window.Sass();
+});
+
+loadJs('https://cdn.jsdelivr.net/npm/less@4');
 
 export const useCodeStore = defineStore({
   id: 'code',
@@ -55,7 +60,7 @@ export const useCodeStore = defineStore({
     compileStyle() {
       switch(this.cssPre) {
         case 'less':
-          less.render(this.css)
+          window.less.render(this.css)
             .then((output) => {
               this.compiledCss = output.css;
             }).catch((e) => {
@@ -64,7 +69,7 @@ export const useCodeStore = defineStore({
             });
           break;
         case 'scss':
-          sass.compile(this.css, (output) => {
+          sass?.compile(this.css, (output) => {
             if (output.text)
               this.compiledCss = output.text;
             else console.log(output.message,

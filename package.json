@@ -11,14 +11,14 @@
   "dependencies": {
     "@vueuse/core": "^8.2.4",
     "emmet-monaco-es": "^5.1.0",
+    "less": "^4.1.2",
     "mitt": "^3.0.0",
     "monaco-editor": "^0.33.0",
     "pinia": "^2.0.0-rc.10",
     "splitpanes": "^3.1.1",
     "vue": "^3.2.25",
     "vue-i18n": "^9.2.0-beta.34",
-    "vue-router": "^4.0.13",
-    "wasm-brotli": "^2.0.2"
+    "vue-router": "^4.0.13"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.0",
@@ -28,7 +28,6 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.5.0",
-    "less": "^4.1.2",
     "less-loader": "^10.2.0",
     "prettier": "^2.6.2",
     "vite": "^2.9.0",

@@ -1,6 +1,5 @@
 .env
 .env.build
 _gen
-public/
 dist/**
 node_modules/**
