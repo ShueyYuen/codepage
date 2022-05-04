@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue';
 import { resolve } from "path";
 import { visualizer } from 'rollup-plugin-visualizer';
 
-import monacoEditorPlugin from "vite-plugin-monaco-editor"
+import monacoEditorPlugin from "vite-plugin-monaco-editor";
 
 const prefix = `monaco-editor/esm/vs`
 
@@ -32,6 +32,13 @@ export default defineConfig({
       }
     },
     target: 'es2015',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'monaco-editor': ['monaco-editor']
+        }
+      }
+    },
   },
   optimizeDeps: {
     include: [

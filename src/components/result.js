@@ -1,9 +1,10 @@
 import { computed, watch } from 'vue';
-import { useCodeStore } from '@/store/index.js';
+import { useCodeStore, usePreferStore } from '@/store/index.js';
 import { useDebounceFn } from '@vueuse/core';
 import bus from '@/utils/bus.js';
 
 const codeStore = useCodeStore();
+const preferStore = usePreferStore();
 
 const debounceCompileToCss = useDebounceFn(codeStore.compileStyle, 1500);
 bus.on('hard-refresh', codeStore.compileStyle);
@@ -16,7 +17,7 @@ watch(() => codeStore.cssPre, codeStore.compileStyle);
 
 export default computed(() =>
 `<!DOCTYPE html>
-<html>
+<html style="--theme-background:${preferStore.theme==='dark'?'#1e1e1e':'#fffffe'};">
   <head>
     ${codeStore.head}
     ${codeStore.cssLinks.map(v => `<link rel="stylesheet" href="${v}"/>`).join('\n    ')}

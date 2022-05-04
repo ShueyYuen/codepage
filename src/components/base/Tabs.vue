@@ -86,6 +86,7 @@ const selectedIndex = computed(() =>
 }
 .switch-tabs__border {
   background: linear-gradient(var(--background) 0 50%, #36519e 50% 100%);
+  border-bottom: 1px solid hsl(224, 49%, 42%);
   :deep(.switch-tabs__item) {
     height: 26px;
     line-height: 26px;
@@ -150,11 +151,5 @@ const selectedIndex = computed(() =>
       // transform: translateX(-50%);
     }
   }
-}
-</style>
-
-<style lang="less">
-.light .switch-tabs__border {
-  border-bottom: 1px solid #36519e;
 }
 </style>
