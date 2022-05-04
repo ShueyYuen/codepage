@@ -152,3 +152,9 @@ const selectedIndex = computed(() =>
   }
 }
 </style>
+
+<style lang="less">
+.light .switch-tabs__border {
+  border-bottom: 1px solid #36519e;
+}
+</style>

@@ -10,7 +10,10 @@ export default {
     const debounceReloadView = useDebounceFn(reloadView, 2000);
     onMounted(reloadView);
     watch(content, debounceReloadView);
-    bus.on('refresh', reloadView);
+    bus.on('hard-refresh', () => {
+      reloadView();
+      window.frames['result-show'].location.reload();
+    });
     return () => h("iframe", {
       frameborder: '0',
       allow: 'fullscreen',

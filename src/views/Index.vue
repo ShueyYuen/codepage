@@ -4,40 +4,49 @@
     <div class="operation-group">
       <Radio v-model="showResult" :disabled="!currentTab">{{ t('result') }}</Radio>
       <SettingModel></SettingModel>
-      <Icons type="refresh" @click="bus.emit('refresh')"></Icons>
-      <Icons :type="preferStore.theme" @click="preferStore.switchTheme()"></Icons>
-      <a download="index.html"
-        :href="`data:text/plain;charset=utf-8,${encodeURIComponent(content)}`">
-        <Icons type="download"></Icons>
-      </a>
-      <Icons type="fullscreen" @click="bus.emit('fullscreen')"></Icons>
-      <a href="https://github.com/ShueyYuen/codepage" target="_blank">
-        <Icons type="github"></Icons>
-      </a>
-      <ShareIcon></ShareIcon>
+      <Tooltip :tips="t('refresh')">
+        <Icons type="refresh" @click="bus.emit('hard-refresh')"></Icons>
+      </Tooltip>
+      <Tooltip :tips="t(preferStore.theme)">
+        <Icons :type="preferStore.theme" @click="preferStore.switchTheme()"></Icons>
+      </Tooltip>
+      <Tooltip :tips="t('download')">
+        <a download="index.html"
+          :href="`data:text/plain;charset=utf-8,${encodeURIComponent(content)}`">
+          <Icons type="download"></Icons>
+        </a>
+      </Tooltip>
+      <Tooltip :tips="t(isFullscreen ? 'compress' : 'expand')">
+        <Icons v-if="isSupported" @click="toggle"
+          :type="isFullscreen ? 'compress' : 'expand'" />
+      </Tooltip>
+      <Tooltip :tips="t('github')">
+        <a href="https://github.com/ShueyYuen/codepage" target="_blank">
+          <Icons type="github"></Icons>
+        </a>
+      </Tooltip>
+      <Tooltip :tips="t('share')">
+        <ShareIcon></ShareIcon>
+      </Tooltip>
     </div>
   </template>
 </Tabs>
 <splitpanes @resize="editorSize = $event[0].size">
-  <pane min-size="20" :class="{ collapse: !currentTab }" :size="editorDisplaySize">
+  <pane min-size="20" :class="{ collapse: !currentTab || !showResult }" :size="editorDisplaySize">
     <keep-alive>
       <component :is="componentName"></component>
     </keep-alive>
   </pane>
-  <pane min-size="20" :size="100 - editorDisplaySize" v-if="showResult">
+  <pane min-size="20" :size="100 - editorDisplaySize">
     <RenderIframe></RenderIframe>
   </pane>
 </splitpanes>
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue';
-import { useRoute } from "vue-router";
+import { computed, ref } from 'vue';
 import Tabs from '@/components/base/Tabs.vue';
 import Icons from '@/components/base/Icons.vue';
-import CSSEditor from '@/components/CSSEditor.vue';
-import HTMLEditor from '@/components/HTMLEditor.vue';
-import JSEditor from '@/components/JSEditor.vue';
 import RenderIframe from '@/components/RenderIframe.js';
 import Radio from '@/components/base/Radio.vue';
 import { t } from '@/lang/index.js';
@@ -49,19 +58,24 @@ import { UnicodeDecodeB64 } from '@/utils/tool.js';
 import { useCodeStore, usePreferStore } from '@/store/index.js';
 import SettingModel from '../components/SettingModel.vue';
 import content from '@/components/result.js';
+import Tooltip from '../components/base/Tooltip.vue';
+import CSSEditor from '@/components/CSSEditor.vue';
+import HTMLEditor from '@/components/HTMLEditor.vue';
+import JSEditor from '@/components/JSEditor.vue';
+
+import { useFullscreen } from '@vueuse/core';
+const { isSupported, isFullscreen, enter, exit, toggle } = useFullscreen(document.body);
 
 const componentMap = {
   js: JSEditor,
   html: HTMLEditor,
   css: CSSEditor,
 }
-
 const cssMap = {
   '': 'CSS',
   scss: 'SCSS',
   less: 'LESS',
 }
-
 const searchParams = new URLSearchParams(window.location.search);
 const codeStore = useCodeStore();
 const loadCode = JSON.parse(
@@ -74,10 +88,9 @@ preferStore.setTheme(theme);
 const showTab = searchParams.get('tab') ?? 'result';
 const showResult = ref(showTab === 'result');
 const currentTab = ref(showTab === 'result' ? '' : showTab);
-
 const editorSize = ref(50);
 const editorDisplaySize = computed(() =>
-  currentTab.value ? editorSize.value : 0);
+  showResult.value ? currentTab.value ? editorSize.value : 0 : 100);
 const tabs = computed(() => [
   { label: 'JavaScript', value: 'js', },
   { label: 'HTML', value: 'html', },
@@ -134,5 +147,6 @@ const componentName = computed(() => componentMap[currentTab.value]);
   height: 26px;
   display: flex;
   cursor: pointer;
+  box-sizing: border-box;
 }
 </style>

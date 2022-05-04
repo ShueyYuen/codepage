@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, defineEmits, computed, nextTick } from 'vue';
+import { ref, computed, nextTick } from 'vue';
 const props = defineProps({
   modelValue: {
     type: String,

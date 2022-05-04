@@ -1,7 +1,9 @@
 <template>
-<Icons type="setting"  @click="modalShow = true"></Icons>
+<Tooltip :tips="t('setting')">
+  <Icons type="setting"  @click="modalShow = true"></Icons>
+</Tooltip>
 <Modal v-model:visible="modalShow">
-  <div class="container">
+  <div class="container dark">
     <Icons type="close"  @click="modalShow=false"></Icons>
     <div class="title">{{ t('setting') }}</div>
     <div class="content">
@@ -33,6 +35,7 @@ import Tabs from './base/Tabs.vue';
 import Icons from './base/Icons.vue';
 import ItemsInput from './base/ItemsInput.vue';
 import Dropdown from './base/Dropdown.vue';
+import Tooltip from './base/Tooltip.vue';
 import { useCodeStore } from '@/store/modules/code.js';
 
 const codeStore = useCodeStore();

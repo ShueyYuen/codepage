@@ -1,9 +1,8 @@
 <template>
-  <i :class="`codeicon codeicon-${props.type}`"></i>
+  <i :class="`codeicon codeicon-${props.type}`" />
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
 const props = defineProps({
   type: {
     type: String,
