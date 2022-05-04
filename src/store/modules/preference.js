@@ -4,6 +4,7 @@ export const usePreferStore = defineStore({
   id: 'prefer',
   state: () => ({
     theme: 'dark',
+    readonly: false,
   }),
   getters: {
     editorTheme: (state) => state.theme === 'dark' ? 'vs-dark' : 'vs',
@@ -14,6 +15,9 @@ export const usePreferStore = defineStore({
     },
     setTheme(val) {
       this.theme = val;
+    },
+    setReadonly(data) {
+      this.readonly = data;
     }
   },
 })

@@ -25,6 +25,7 @@ onMounted(() => {
     language:'html',//语言支持自行查阅demo
     automaticLayout: true,//自动布局
     theme: preferStore.editorTheme,
+    readOnly: preferStore.readonly,
   });
   editor.onDidChangeModelContent(() => {
     codeStore.setHTML(editor.getValue());

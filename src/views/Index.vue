@@ -84,7 +84,8 @@ codeStore.setDefault(loadCode);
 const preferStore = usePreferStore();
 const theme = searchParams.get('theme') ?? 'dark';
 preferStore.setTheme(theme);
-
+const codeReadonly = (searchParams.get('readonly') ?? 'false') === "true";
+preferStore.setReadonly(codeReadonly);
 const showTab = searchParams.get('tab') ?? 'result';
 const showResult = ref(showTab === 'result');
 const currentTab = ref(showTab === 'result' ? '' : showTab);

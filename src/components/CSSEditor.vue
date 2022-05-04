@@ -29,6 +29,7 @@ onMounted(() => {
     language: codeStore.cssPre || 'css',//语言支持自行查阅demo
     automaticLayout: true,//自动布局
     theme: preferStore.editorTheme,
+    readOnly: preferStore.readonly,
   });
   editor.onDidChangeModelContent(() => {
     codeStore.setCSS(editor.getValue());
