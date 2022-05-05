@@ -6,7 +6,7 @@ import bus from '@/utils/bus.js';
 const codeStore = useCodeStore();
 const preferStore = usePreferStore();
 
-const debounceCompileToCss = useDebounceFn(codeStore.compileStyle, 1500);
+const debounceCompileToCss = useDebounceFn(codeStore.compileStyle, preferStore.debounce);
 bus.on('hard-refresh', codeStore.compileStyle);
 bus.on('compile', (type) => {
   if ((type ?? '') === codeStore.cssPre)

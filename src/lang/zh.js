@@ -9,4 +9,10 @@ export default {
   compress: '退出全屏',
   github: 'Github',
   share: '分享',
+  preference: '配置',
+  gzip: '使用Gzip',
+  gzipInfo: '受制于get请求在不同浏览器上的长度限制，不能通过url分享长代码，通过Gzip压缩代码，可以达到18%的压缩率。',
+  language: '语言',
+  debounce: '防抖',
+  operation: '功能开关',
 }

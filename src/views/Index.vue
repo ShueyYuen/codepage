@@ -7,25 +7,26 @@
       <Tooltip :tips="t('refresh')">
         <Icons type="refresh" @click="bus.emit('hard-refresh')"></Icons>
       </Tooltip>
-      <Tooltip :tips="t(preferStore.theme)">
+      <Tooltip :tips="t(preferStore.theme)" v-if="preferStore.operation.theme">
         <Icons :type="preferStore.theme" @click="preferStore.switchTheme()"></Icons>
       </Tooltip>
-      <Tooltip :tips="t('download')">
+      <Tooltip :tips="t('download')" v-if="preferStore.operation.download">
         <a download="index.html"
           :href="`data:text/plain;charset=utf-8,${encodeURIComponent(content)}`">
           <Icons type="download"></Icons>
         </a>
       </Tooltip>
-      <Tooltip :tips="t(isFullscreen ? 'compress' : 'expand')">
+      <Tooltip :tips="t(isFullscreen ? 'compress' : 'expand')"
+        v-if="preferStore.operation.fullscreen">
         <Icons v-if="isSupported" @click="toggle"
           :type="isFullscreen ? 'compress' : 'expand'" />
       </Tooltip>
-      <Tooltip :tips="t('github')">
+      <Tooltip :tips="t('github')" v-if="preferStore.operation.github">
         <a href="https://github.com/ShueyYuen/codepage" target="_blank">
           <Icons type="github"></Icons>
         </a>
       </Tooltip>
-      <Tooltip :tips="t('share')">
+      <Tooltip :tips="t('share')" v-if="preferStore.operation.share">
         <ShareIcon></ShareIcon>
       </Tooltip>
     </div>
@@ -82,8 +83,8 @@ const loadCode = JSON.parse(
   UnicodeDecodeB64(searchParams.get('code') ?? '') || '{}');
 codeStore.setDefault(loadCode);
 const preferStore = usePreferStore();
-const theme = searchParams.get('theme') ?? 'dark';
-preferStore.setTheme(theme);
+const theme = searchParams.get('theme');
+theme && preferStore.setTheme(theme);
 const codeReadonly = (searchParams.get('readonly') ?? 'false') === "true";
 preferStore.setReadonly(codeReadonly);
 const showTab = searchParams.get('tab') ?? 'result';

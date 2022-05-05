@@ -9,4 +9,10 @@ export default {
   compress: 'Compress',
   github: 'Github',
   share: 'Share',
+  preference: 'Preference',
+  gzip: 'Gzip Enable',
+  gzipInfo: 'Subject to the length limit of get requests on different browsers, long codes cannot be shared through urls. By compressing codes with Gzip, a compression rate of 18% can be achieved.',
+  language: 'Language',
+  debounce: 'Debounce',
+  operation: 'Operation On',
 }

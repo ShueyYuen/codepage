@@ -1,5 +1,9 @@
 <template>
-  <span :tooltip="tips" :position="position"><slot /></span>
+  <span :tooltip="tips" :position="position"
+      :class="{multiline: multiline}"
+      :style="`--trans: ${transform}px;`">
+    <slot />
+  </span>
 </template>
 
 <script>
@@ -14,6 +18,14 @@ export default {
       default: "bottom",
       type: String,
     },
+    multiline: {
+      default: false,
+      type: Boolean,
+    },
+    transform: {
+      default: "0",
+      type: String,
+    }
   },
 };
 </script>
@@ -76,8 +88,8 @@ export default {
   &:not([position])::after,
   &[position^="top"]::before,
   &[position^="top"]::after {
-    left: 50%;
-    transform: translate(-50%, -0.5em);
+    left: calc(50% + var(--trans));
+    transform: translate(calc(-50% + var(--trans)), -0.5em);
   }
 
   /* position: BOTTOM */
@@ -91,8 +103,8 @@ export default {
   }
   &[position^="bottom"]::before,
   &[position^="bottom"]::after {
-    left: 50%;
-    transform: translate(-50%, 0.5em);
+    left: calc(50% + var(--trans));
+    transform: translate(calc(-50% + var(--trans)), 0.5em);
   }
 
   /* position: LEFT */
@@ -104,9 +116,9 @@ export default {
     transform: translate(-0.5em, -50%);
   }
   &[position^="left"]::after {
-    top: 50%;
+    top: calc(50% + var(--trans));
     right: calc(100% + 5px);
-    transform: translate(-0.5em, -50%);
+    transform: translate(-0.5em, calc(-50% + var(--trans)));
   }
 
   /* position: RIGHT */
@@ -118,7 +130,7 @@ export default {
     transform: translate(0.5em, -50%);
   }
   &[position^="right"]::after {
-    top: 50%;
+    top: calc(50% + var(--trans));
     left: calc(100% + 5px);
     transform: translate(0.5em, -50%);
   }
@@ -138,6 +150,13 @@ export default {
   &[position^="right"]:hover::before,
   &[position^="right"]:hover::after {
     animation: tooltips-horz 300ms ease-out forwards;
+  }
+}
+
+.multiline {
+  &::after {
+    width: 300px;
+    white-space: normal;
   }
 }
 

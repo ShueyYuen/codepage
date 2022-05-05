@@ -8,7 +8,7 @@
 import { computed, ref, watch } from 'vue';
 import { useClipboard, useWebNotification } from '@vueuse/core';
 import { useCodeStore } from '@/store/modules/code.js';
-import { b64EncodeUnicode } from '../utils/tool.js';
+import { b64EncodeUnicode, compress, arrayToBase64String, decompress } from '../utils/tool.js';
 import Icons from '@/components/base/Icons.vue';
 
 const codeStore = useCodeStore();
@@ -30,7 +30,16 @@ const handleClick = (path) => {
 };
 
 const shareUrl = computed(() => {
+  const share = JSON.stringify(codeStore.config);
+  // console.log(share, b64EncodeUnicode(share).length);
+  // compress(share).then(res => {
+  //   console.log('result', res,  arrayToBase64String(res), arrayToBase64String(res).length);
+  //   console.log('decompress:', decompress(res).then(v => {
+  //     // console.log(v);
+  //   }));
+  // });
   return { path: '/',query: {
-    code: b64EncodeUnicode(JSON.stringify(codeStore.config)) }};
+    code: b64EncodeUnicode(share),
+  }};
 });
 </script>
