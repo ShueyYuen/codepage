@@ -24,7 +24,7 @@ const props = defineProps({
 
 const emits = defineEmits(['update:modelValue']);
 
-const handleClick =  function() {
+const handleClick = function() {
   if (props.disabled) return;
   emits('update:modelValue', !props.modelValue);
 }
@@ -65,10 +65,10 @@ const handleClick =  function() {
   }
   &.active {
     background: #36519e44;
-    border-color: #36519e;
+    border-color: #3469ff;
     &::after {
       left: 18px;
-      background: #36519e;
+      background: #3469ff;
     }
   }
 }

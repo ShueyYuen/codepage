@@ -5,13 +5,15 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { useClipboard, useWebNotification } from '@vueuse/core';
-import { useCodeStore } from '@/store/modules/code.js';
-import { b64EncodeUnicode, compress, arrayToBase64String, decompress } from '../utils/tool.js';
+import { useCodeStore, usePreferStore } from '@/store/index.js';
+
+import { compress, arrayToBase64String, b64EncodeUnicode } from '../utils/tool.js';
 import Icons from '@/components/base/Icons.vue';
 
 const codeStore = useCodeStore();
+const preferStore = usePreferStore();
 
 const handleClick = (path) => {
   const source = ref(`${window.location.origin}/?code=${path.query.code}`);
@@ -29,17 +31,23 @@ const handleClick = (path) => {
   setTimeout(close, 3000);
 };
 
-const shareUrl = computed(() => {
+const shareUrl = ref({
+  path: '/',
+  query: {
+    code: '',
+    gzip: 0,
+  }
+});
+
+watchEffect(() => {
   const share = JSON.stringify(codeStore.config);
-  // console.log(share, b64EncodeUnicode(share).length);
-  // compress(share).then(res => {
-  //   console.log('result', res,  arrayToBase64String(res), arrayToBase64String(res).length);
-  //   console.log('decompress:', decompress(res).then(v => {
-  //     // console.log(v);
-  //   }));
-  // });
-  return { path: '/',query: {
-    code: b64EncodeUnicode(share),
-  }};
+  if (preferStore.gzip) {
+    compress(share).then(res => {
+      shareUrl.value.query.code = arrayToBase64String(res);
+    });
+  } else {
+    shareUrl.value.query.code = b64EncodeUnicode(share);
+  }
+  shareUrl.value.query.gzip = +preferStore.gzip;
 });
 </script>
