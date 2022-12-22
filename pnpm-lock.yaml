@@ -18,6 +18,7 @@ specifiers:
   prettier: ^2.6.2
   rollup-plugin-visualizer: ^5.6.0
   splitpanes: ^3.1.1
+  vconsole: ^3.14.6
   vite: ^2.9.0
   vite-plugin-monaco-editor: ^1.0.10
   vue: ^3.2.25
@@ -31,6 +32,7 @@ dependencies:
   monaco-editor: registry.npmmirror.com/monaco-editor/0.33.0
   pinia: registry.npmmirror.com/pinia/2.0.13_vue@3.2.33
   splitpanes: registry.npmmirror.com/splitpanes/3.1.1
+  vconsole: registry.npmmirror.com/vconsole/3.14.6
   vue: registry.npmmirror.com/vue/3.2.33
   vue-i18n: registry.npmmirror.com/vue-i18n/9.2.0-beta.35_vue@3.2.33
   vue-router: registry.npmmirror.com/vue-router/4.0.14_vue@3.2.33
@@ -1428,7 +1430,6 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: registry.npmmirror.com/regenerator-runtime/0.13.9
-    dev: true
 
   registry.npmmirror.com/@babel/template/7.16.7:
     resolution: {integrity: sha512-I8j/x8kHUrbYRTUxXrrMbfCa7jxkE7tZre39x3kjr9hvI82cK1FfqLygotcWN5kdPGWcLdWMHpSBavse5tWw3w==, registry: http://10.151.3.175:7001/, tarball: https://registry.npmmirror.com/@babel/template/-/template-7.16.7.tgz}
@@ -2571,6 +2572,13 @@ packages:
       is-what: registry.npmmirror.com/is-what/3.14.1
     dev: true
 
+  registry.npmmirror.com/copy-text-to-clipboard/3.0.1:
+    resolution: {integrity: sha512-rvVsHrpFcL4F2P8ihsoLdFHmd404+CMg71S756oRSeQgqk51U3kicGdnvfkrxva0xXH92SjGS62B0XIJsbh+9Q==, registry: http://10.151.3.175:7001/, tarball: https://registry.npmmirror.com/copy-text-to-clipboard/-/copy-text-to-clipboard-3.0.1.tgz}
+    name: copy-text-to-clipboard
+    version: 3.0.1
+    engines: {node: '>=12'}
+    dev: false
+
   registry.npmmirror.com/core-js-compat/3.22.3:
     resolution: {integrity: sha512-wliMbvPI2idgFWpFe7UEyHMvu6HWgW8WA+HnDRtgzoSDYvXFMpoGX1H3tPDDXrcfUSyXafCLDd7hOeMQHEZxGw==, registry: http://10.151.3.175:7001/, tarball: https://registry.npmmirror.com/core-js-compat/-/core-js-compat-3.22.3.tgz}
     name: core-js-compat
@@ -2579,6 +2587,13 @@ packages:
       browserslist: registry.npmmirror.com/browserslist/4.20.3
       semver: registry.npmmirror.com/semver/7.0.0
     dev: true
+
+  registry.npmmirror.com/core-js/3.22.4:
+    resolution: {integrity: sha512-1uLykR+iOfYja+6Jn/57743gc9n73EWiOnSJJ4ba3B4fOEYDBv25MagmEZBxTp5cWq4b/KPx/l77zgsp28ju4w==, registry: http://10.151.3.175:7001/, tarball: https://registry.npmmirror.com/core-js/-/core-js-3.22.4.tgz}
+    name: core-js
+    version: 3.22.4
+    requiresBuild: true
+    dev: false
 
   registry.npmmirror.com/cross-spawn/6.0.5:
     resolution: {integrity: sha512-eTVLrBSt7fjbDygz805pMnstIs2VTBNkRm0qxZd+M7A5XDdxVRWO5MxGBXZhjY4cqLYLdtrGqRf8mBPmzwSpWQ==, registry: http://10.151.3.175:7001/, tarball: https://registry.npmmirror.com/cross-spawn/-/cross-spawn-6.0.5.tgz}
@@ -4389,6 +4404,12 @@ packages:
     dev: true
     optional: true
 
+  registry.npmmirror.com/mutation-observer/1.0.3:
+    resolution: {integrity: sha512-M/O/4rF2h776hV7qGMZUH3utZLO/jK7p8rnNgGkjKUw8zCGjRQPxB8z6+5l8+VjRUQ3dNYu4vjqXYLr+U8ZVNA==, registry: http://10.151.3.175:7001/, tarball: https://registry.npmmirror.com/mutation-observer/-/mutation-observer-1.0.3.tgz}
+    name: mutation-observer
+    version: 1.0.3
+    dev: false
+
   registry.npmmirror.com/nanoid/3.3.3:
     resolution: {integrity: sha512-p1sjXuopFs0xg+fPASzQ28agW1oHD7xDsd9Xkf3T15H3c/cifrFHVwrh74PdoklAPi+i7MdRsE47vm2r6JoB+w==, registry: http://10.151.3.175:7001/, tarball: https://registry.npmmirror.com/nanoid/-/nanoid-3.3.3.tgz}
     name: nanoid
@@ -4822,7 +4843,6 @@ packages:
     resolution: {integrity: sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==, registry: http://10.151.3.175:7001/, tarball: https://registry.npmmirror.com/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz}
     name: regenerator-runtime
     version: 0.13.9
-    dev: true
 
   registry.npmmirror.com/regenerator-transform/0.15.0:
     resolution: {integrity: sha512-LsrGtPmbYg19bcPHwdtmXwbW+TqNvtY4riE3P83foeHRroMbH6/2ddFBfab3t7kbzc7v7p4wbkIecHImqt0QNg==, registry: http://10.151.3.175:7001/, tarball: https://registry.npmmirror.com/regenerator-transform/-/regenerator-transform-0.15.0.tgz}
@@ -5566,6 +5586,17 @@ packages:
       spdx-correct: registry.npmmirror.com/spdx-correct/3.1.1
       spdx-expression-parse: registry.npmmirror.com/spdx-expression-parse/3.0.1
     dev: true
+
+  registry.npmmirror.com/vconsole/3.14.6:
+    resolution: {integrity: sha512-8Ffk2SfNe6EzKqZ0aNnNjpAVBVT7zgJo81lYEJdKySYLVYBeSawdSkWi9fSjDg3WsQhgS1vNPmRqJDTuwdVbnQ==, registry: http://10.151.3.175:7001/, tarball: https://registry.npmmirror.com/vconsole/-/vconsole-3.14.6.tgz}
+    name: vconsole
+    version: 3.14.6
+    dependencies:
+      '@babel/runtime': registry.npmmirror.com/@babel/runtime/7.17.9
+      copy-text-to-clipboard: registry.npmmirror.com/copy-text-to-clipboard/3.0.1
+      core-js: registry.npmmirror.com/core-js/3.22.4
+      mutation-observer: registry.npmmirror.com/mutation-observer/1.0.3
+    dev: false
 
   registry.npmmirror.com/vite-plugin-monaco-editor/1.0.10_monaco-editor@0.33.0:
     resolution: {integrity: sha512-7yTAFIE0SefjCmfnjrvXOl53wkxeSASc/ZIcB5tZeEK3vAmHhveV8y3f90Vp8b+PYdbUipjqf91mbFbSENkpcw==, registry: http://10.151.3.175:7001/, tarball: https://registry.npmmirror.com/vite-plugin-monaco-editor/-/vite-plugin-monaco-editor-1.0.10.tgz}

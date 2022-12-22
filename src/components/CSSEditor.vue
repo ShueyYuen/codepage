@@ -7,6 +7,7 @@ import * as monaco from 'monaco-editor';
 import { onMounted, watch, onUnmounted } from 'vue';
 import { useCodeStore, usePreferStore } from '@/store/index.js';
 import { emmetCSS } from "emmet-monaco-es";
+import bus from '@/utils/bus.js';
 
 emmetCSS(monaco);
 let editor = null;
@@ -30,6 +31,9 @@ onMounted(() => {
     automaticLayout: true,//自动布局
     theme: preferStore.editorTheme,
     readOnly: preferStore.readonly,
+  });
+  editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
+    bus.emit('hard-refresh');
   });
   editor.onDidChangeModelContent(() => {
     codeStore.setCSS(editor.getValue());

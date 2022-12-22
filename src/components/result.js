@@ -18,18 +18,20 @@ watch(() => codeStore.cssPre, codeStore.compileStyle);
 export default computed(() =>
 `<!DOCTYPE html>
 <html style="--theme-background:${preferStore.theme==='dark'?'#1e1e1e':'#fffffe'};">
-  <head>
-    ${codeStore.head}
-    ${codeStore.cssLinks.map(v => `<link rel="stylesheet" href="${v}"/>`).join('\n    ')}
-    ${codeStore.jsLinks.map(v => `<script src="${v}"></script>`).join('\n    ')}
-    <style>
-      ${codeStore.compiledCss}
-    </style>
-  </head>
-  <body>
-    ${codeStore.html}
-    <script>
-      ${codeStore.js}
-    </script>
-  </body>
+<head>
+  ${codeStore.head}
+  <!-- injected css -->
+  ${codeStore.cssLinks.map(v => `<link rel="stylesheet" href="${v}"/>`).join('\n')}
+  <!-- injected script -->
+  ${codeStore.jsLinks.map(v => `<script src="${v}"></script>`).join('\n')}
+  <style>
+    ${codeStore.compiledCss}
+  </style>
+</head>
+<body>
+  ${codeStore.html}
+  <script>
+    ${codeStore.js}
+  </script>
+</body>
 </html>`);

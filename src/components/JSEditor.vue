@@ -6,6 +6,7 @@
 import * as monaco from 'monaco-editor';
 import { onMounted, onUnmounted, watch } from 'vue';
 import { useCodeStore, usePreferStore } from '@/store/index.js';
+import bus from '@/utils/bus.js';
 
 let editor = null;
 const codeStore = useCodeStore();
@@ -24,6 +25,9 @@ onMounted(() => {
     automaticLayout: true,//自动布局
     theme: preferStore.editorTheme,
     readOnly: preferStore.readonly,
+  });
+  editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
+    bus.emit('hard-refresh');
   });
   editor.onDidChangeModelContent(() => {
     codeStore.setJS(editor.getValue());
