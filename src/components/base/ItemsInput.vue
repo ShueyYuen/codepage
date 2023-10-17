@@ -1,13 +1,13 @@
 <template>
   <div v-for="(item, i) in list" class="input-wrap">
-    <input v-model="item.value" :placeholder="props.placeholder" @blur="blurd"/>
+    <input v-model="item.value" :placeholder="props.placeholder" @blur="blurred"/>
     <i class="codeicon codeicon-delete" @click="handleDelete(i)"></i>
   </div>
   <div class="add-button" @click="handleAdd">{{ props.address }}</div>
 </template>
 
 <script setup>
-import { computed, watch, ref } from 'vue';
+import { watch, ref } from 'vue';
 
 const props = defineProps({
   modelValue: {
@@ -27,17 +27,18 @@ const emits = defineEmits(['update:modelValue']);
 
 const list = ref([]);
 
-watch(props.modelValue, () => {
+watch(() => props.modelValue, () => {
   const addLength = list.value.reduce((t,c) => c.value ? t : t + 1, 0)
     || props.modelValue.length ? 0 : 1;
   list.value = props.modelValue.map(v => ({ value: v }))
     .concat(Array(addLength).fill({ value: '' }));
 }, { immediate: true });
 
-const blurd = () => emits('update:modelValue',
-  list.value.map(v => v.value).filter(v => v));
-const handleDelete = (idx) => list.value.splice(idx, 1) && blurd();
-const handleAdd = () => list.value.push({value: ''});
+const blurred = () => 
+  emits('update:modelValue',
+    list.value.map(v => v.value).filter(v => v));
+const handleDelete = (idx) => list.value.splice(idx, 1) && blurred();
+const handleAdd = () => list.value.push({ value: '' });
 </script>
 
 <style lang="less">

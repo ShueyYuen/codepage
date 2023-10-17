@@ -116,7 +116,7 @@ if (codeParam) {
     });
   } else {
     codeStore.setDefault(
-      JSON.parse(UnicodeDecodeB64(searchParams.get("code") ?? "") || "{}")
+      JSON.parse(UnicodeDecodeB64(codeParam ?? "") || "{}")
     );
   }
 }
