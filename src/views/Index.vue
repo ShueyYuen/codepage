@@ -107,18 +107,21 @@ const cssMap = {
 const searchParams = new URLSearchParams(window.location.search);
 const codeStore = useCodeStore();
 
+const initd = ref(false);
 const codeParam = searchParams.get("code");
 if (codeParam) {
   const zipped = parseInt(searchParams.get("gzip") || 0);
   if (zipped) {
     decompress(base64StringToArray(codeParam)).then((res) => {
       codeStore.setDefault(JSON.parse(res || "{}"));
+      initd.value = true;
     });
   } else {
-    codeStore.setDefault(
-      JSON.parse(UnicodeDecodeB64(codeParam ?? "") || "{}")
-    );
+    codeStore.setDefault(JSON.parse(UnicodeDecodeB64(codeParam ?? "") || "{}"));
+    initd.value = true;
   }
+} else {
+  initd.value = true;
 }
 
 const preferStore = usePreferStore();
@@ -126,9 +129,9 @@ const theme = searchParams.get("theme");
 theme && preferStore.setTheme(theme);
 const codeReadonly = (searchParams.get("readonly") ?? "false") === "true";
 preferStore.setReadonly(codeReadonly);
-const showTab = searchParams.get("tab") ?? "result";
-const showResult = ref(showTab === "result");
-const currentTab = ref(showTab === "result" ? "" : showTab);
+const showTab = (searchParams.get("tab") ?? "result").split(",");
+const showResult = ref(showTab.includes("result"));
+const currentTab = ref(showTab.filter((item) => item !== "result")[0] || "");
 const editorSize = ref(50);
 const editorDisplaySize = computed(() =>
   showResult.value ? (currentTab.value ? editorSize.value : 0) : 100
@@ -140,7 +143,9 @@ const tabs = computed(() => [
   { value: "gap" },
   { slot: "operation" },
 ]);
-const componentName = computed(() => componentMap[currentTab.value]);
+const componentName = computed(() =>
+  initd.value ? componentMap[currentTab.value] : undefined
+);
 </script>
 
 <style lang="less" scoped>

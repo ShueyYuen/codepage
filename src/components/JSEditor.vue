@@ -34,7 +34,5 @@ onMounted(() => {
   });
 });
 
-onUnmounted(() => {
-  editor.dispose();
-});
+onUnmounted(() => editor.dispose());
 </script>
