@@ -48,6 +48,7 @@ watchEffect(() => {
   } else {
     shareUrl.value.query.code = b64EncodeUnicode(share);
   }
+  shareUrl.value.query.code = encodeURIComponent(shareUrl.value.query.code);
   shareUrl.value.query.gzip = +preferStore.gzip;
 });
 </script>
