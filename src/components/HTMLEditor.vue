@@ -27,6 +27,7 @@ onMounted(() => {
     automaticLayout: true,//自动布局
     theme: preferStore.editorTheme,
     readOnly: preferStore.readonly,
+    wordWrap:'on',
   });
   editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
     bus.emit('hard-refresh');
