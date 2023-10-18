@@ -11,9 +11,9 @@ watch(() => preferStore.theme, () => {
 const version = "1.0.5";
 const buildTime = "2022.05.03";
 console.log(
-  `%c Release Build Info 
-  %cVersion			v${version}
-  BuildTime		${buildTime}`,
+  `%c  Release Build Info        
+%c  Version			v${version}  
+  BuildTime		${buildTime}  `,
   "background:#000;color:#FFF;font-weight:bold;",
   "background:#FFF;color:#000;"
 );
