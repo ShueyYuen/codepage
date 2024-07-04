@@ -13,7 +13,7 @@
     "axios": "1.7.2",
     "emmet-monaco-es": "5.4.0",
     "mitt": "3.0.1",
-    "monaco-editor": "0.50.0",
+    "monaco-editor": "0.33.0",
     "pinia": "2.1.7",
     "splitpanes": "3.1.5",
     "vue": "3.4.31",

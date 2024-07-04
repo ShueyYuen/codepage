@@ -128,8 +128,7 @@ const onlineCode = parseInt(searchParams.get("online") || "");
   if (res) {
     codeStore.setDefault(res);
   }
-  initd.value = true;
-}).catch((err) => (initd.value = true))
+}).catch(() => { }).finally(() => (initd.value = true))
 
 const preferStore = usePreferStore();
 const theme = searchParams.get("theme");

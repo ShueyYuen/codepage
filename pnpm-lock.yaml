@@ -13,13 +13,13 @@ dependencies:
     version: 1.7.2
   emmet-monaco-es:
     specifier: 5.4.0
-    version: 5.4.0(monaco-editor@0.50.0)
+    version: 5.4.0(monaco-editor@0.33.0)
   mitt:
     specifier: 3.0.1
     version: 3.0.1
   monaco-editor:
-    specifier: 0.50.0
-    version: 0.50.0
+    specifier: 0.33.0
+    version: 0.33.0
   pinia:
     specifier: 2.1.7
     version: 2.1.7(vue@3.4.31)
@@ -75,7 +75,7 @@ devDependencies:
     version: 5.3.3(less@4.2.0)
   vite-plugin-monaco-editor:
     specifier: 1.0.10
-    version: 1.0.10(monaco-editor@0.50.0)
+    version: 1.0.10(monaco-editor@0.33.0)
 
 packages:
 
@@ -3773,13 +3773,13 @@ packages:
     resolution: {integrity: sha512-EKH5X5oqC6hLmiS7/vYtZHZFTNdhsYG5NVPRN6Yn0kQHNBlT59+xSM8HBy66P5fxWpKgZbPqb+diC64ng295Jw==}
     dev: true
 
-  /emmet-monaco-es@5.4.0(monaco-editor@0.50.0):
+  /emmet-monaco-es@5.4.0(monaco-editor@0.33.0):
     resolution: {integrity: sha512-IaazkBSyGEeB5OROqR5ORbrf4KOlJnzWJ1CKwo1n92z3MQbRKJ1CX/n3UaoVkdSAgGVRwNnTulsHQ5JWwj8Dvw==}
     peerDependencies:
       monaco-editor: '>=0.22.0'
     dependencies:
       emmet: 2.4.7
-      monaco-editor: 0.50.0
+      monaco-editor: 0.33.0
     dev: false
 
   /emmet@2.4.7:
@@ -5449,8 +5449,8 @@ packages:
     resolution: {integrity: sha512-23g5BFj4zdQL/b6tor7Ji+QY4pEfNH784BMslY9Qb0UnJWRAt+lQGLYmRaM0KDBwIG23ffEBELhZDP2rhi9f/Q==}
     dev: true
 
-  /monaco-editor@0.50.0:
-    resolution: {integrity: sha512-8CclLCmrRRh+sul7C08BmPBP3P8wVWfBHomsTcndxg5NRCEPfu/mc2AGU8k37ajjDVXcXFc12ORAMUkmk+lkFA==}
+  /monaco-editor@0.33.0:
+    resolution: {integrity: sha512-VcRWPSLIUEgQJQIE0pVT8FcGBIgFoxz7jtqctE+IiCxWugD0DwgyQBcZBhdSrdMC84eumoqMZsGl2GTreOzwqw==}
 
   /mrmime@2.0.0:
     resolution: {integrity: sha512-eu38+hdgojoyq63s+yTpN4XMBdt5l8HhMhc4VKLO9KM5caLIBvUm4thi7fFaxyTmCKeNnXZ5pAlBwCUnhA09uw==}
@@ -7354,12 +7354,12 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
-  /vite-plugin-monaco-editor@1.0.10(monaco-editor@0.50.0):
+  /vite-plugin-monaco-editor@1.0.10(monaco-editor@0.33.0):
     resolution: {integrity: sha512-7yTAFIE0SefjCmfnjrvXOl53wkxeSASc/ZIcB5tZeEK3vAmHhveV8y3f90Vp8b+PYdbUipjqf91mbFbSENkpcw==}
     peerDependencies:
       monaco-editor: 0.29.x
     dependencies:
-      monaco-editor: 0.50.0
+      monaco-editor: 0.33.0
     dev: true
 
   /vite@5.3.3(less@4.2.0):
