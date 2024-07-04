@@ -79,7 +79,7 @@ import ShareIcon from "@/components/ShareIcon.vue";
 import {
   base64StringToArray,
   decompress,
-  UnicodeDecodeB64,
+  unicodeDecodeB64,
 } from "@/utils/tool.js";
 import { useCodeStore, usePreferStore } from "@/store/index.js";
 import SettingModel from "../components/SettingModel.vue";
@@ -88,6 +88,7 @@ import Tooltip from "../components/base/Tooltip.vue";
 import CSSEditor from "@/components/CSSEditor.vue";
 import HTMLEditor from "@/components/HTMLEditor.vue";
 import JSEditor from "@/components/JSEditor.vue";
+import https from '../utils/http'
 
 import { useFullscreen } from "@vueuse/core";
 const { isSupported, isFullscreen, enter, exit, toggle } = useFullscreen(
@@ -108,21 +109,29 @@ const searchParams = new URLSearchParams(window.location.search);
 const codeStore = useCodeStore();
 
 const initd = ref(false);
-const codeParam = searchParams.get("code");
-if (codeParam) {
+const onlineCode = searchParams.get("online") || "";
+
+(onlineCode ? https.get('/code/get', {
+  params: {
+    id: onlineCode
+  }
+}) : Promise.resolve({ data: { code: searchParams.get("code") } })).then(({ data }) => {
+  if (!data.code) {
+    return;
+  };
+  const code = data.code;
   const zipped = parseInt(searchParams.get("gzip") || 0);
   if (zipped) {
-    decompress(base64StringToArray(codeParam)).then((res) => {
-      codeStore.setDefault(JSON.parse(res || "{}"));
-      initd.value = true;
-    });
-  } else {
-    codeStore.setDefault(JSON.parse(UnicodeDecodeB64(codeParam ?? "") || "{}"));
-    initd.value = true;
+    return decompress(base64StringToArray(decodeURIComponent(code))).then((res) => JSON.parse(res || "{}"));
   }
-} else {
-  initd.value = true;
-}
+  return JSON.parse(unicodeDecodeB64(decodeURIComponent(code)) || "{}");
+}).then((res) => {
+  if (res) {
+    codeStore.setDefault(res);
+  }
+}).catch((error) => {
+  console.error('error', error)
+}).finally(() => (initd.value = true))
 
 const preferStore = usePreferStore();
 const theme = searchParams.get("theme");

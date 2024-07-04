@@ -33,6 +33,12 @@
           <Radio type="switch" v-model="preferStore.gzip"></Radio>
         </div>
         <div class="setting-item">
+          <div class="setting-panel__title">
+            {{ t('onlineSave') }}
+          </div>
+          <Radio type="switch" v-model="preferStore.online"></Radio>
+        </div>
+        <div class="setting-item">
           <div class="setting-panel__title">{{ t('language') }}</div>
           <Dropdown v-model="preferStore.language"
             style="width: 120px;"
