@@ -49,7 +49,7 @@
       </div>
     </template>
   </Tabs>
-  <splitpanes @resize="editorSize = $event[0].size">
+  <splitpanes @resize="handleSplitResize" @resized="handleSplitResized">
     <pane
       min-size="20"
       :class="{ collapse: !currentTab || !showResult }"
@@ -60,7 +60,7 @@
       </keep-alive>
     </pane>
     <pane min-size="20" :size="100 - editorDisplaySize">
-      <RenderIframe></RenderIframe>
+      <RenderIframe :interaction="!isDragging"></RenderIframe>
     </pane>
   </splitpanes>
 </template>
@@ -155,6 +155,15 @@ const tabs = computed(() => [
 const componentName = computed(() =>
   initd.value ? componentMap[currentTab.value] : undefined
 );
+
+const isDragging = ref(false);
+const handleSplitResize = (size) => {
+  editorSize.value = size[0].size;
+  isDragging.value = true;
+};
+const handleSplitResized = () => {
+  isDragging.value = false;
+};
 </script>
 
 <style lang="less" scoped>
