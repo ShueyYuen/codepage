@@ -8,7 +8,7 @@ export const isOn = (key) => onRE.test(key);
 
 export const b64EncodeUnicode = (str) => window.btoa(encodeURIComponent(str));
 
-export const UnicodeDecodeB64 = (str) => decodeURIComponent(window.atob(str));
+export const unicodeDecodeB64 = (str) => decodeURIComponent(window.atob(str));
 
 export const arrayToBase64String = (a) => window.btoa(String.fromCharCode(...new Uint8Array(a)));
 

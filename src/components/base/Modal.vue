@@ -40,6 +40,8 @@ const handleClose = () => emits('update:visible', false);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 100;
+
   &__mask {
     position: absolute;
     top: 0;
@@ -48,6 +50,7 @@ const handleClose = () => emits('update:visible', false);
     right: 0;
     background-color: rgba(0, 0, 0, 0.4);
   }
+
   &__container {
     z-index: 1;
   }

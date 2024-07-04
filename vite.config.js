@@ -16,7 +16,9 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    monacoEditorPlugin(),
+    monacoEditorPlugin({
+      languageWorkers: ['json', 'css', 'html', 'typescript'],
+    }),
     visualizer(),
   ],
   build:{
