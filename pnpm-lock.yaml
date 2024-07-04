@@ -74,8 +74,8 @@ devDependencies:
     specifier: 5.3.3
     version: 5.3.3(less@4.2.0)
   vite-plugin-monaco-editor:
-    specifier: 1.1.0
-    version: 1.1.0(monaco-editor@0.50.0)
+    specifier: 1.0.10
+    version: 1.0.10(monaco-editor@0.50.0)
 
 packages:
 
@@ -2316,7 +2316,7 @@ packages:
       lru-cache: 4.1.5
       merge-source-map: 1.1.0
       postcss: 7.0.39
-      postcss-selector-parser: 6.0.10
+      postcss-selector-parser: 6.1.0
       source-map: 0.6.1
       vue-template-es2015-compiler: 1.9.1
     optionalDependencies:
@@ -2989,7 +2989,7 @@ packages:
       normalize-path: 3.0.0
       readdirp: 3.6.0
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /chrome-trace-event@1.0.3:
@@ -4374,14 +4374,6 @@ packages:
   /fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
     dev: true
-
-  /fsevents@2.3.2:
-    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
-    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
 
   /fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
@@ -5891,7 +5883,7 @@ packages:
       postcss: ^8.2.2
     dependencies:
       postcss: 8.4.39
-      postcss-selector-parser: 6.0.10
+      postcss-selector-parser: 6.1.0
       postcss-value-parser: 4.2.0
     dev: true
 
@@ -5990,7 +5982,7 @@ packages:
       caniuse-api: 3.0.0
       cssnano-utils: 3.1.0(postcss@8.4.39)
       postcss: 8.4.39
-      postcss-selector-parser: 6.0.10
+      postcss-selector-parser: 6.1.0
     dev: true
 
   /postcss-minify-font-values@5.1.0(postcss@8.4.39):
@@ -6034,7 +6026,7 @@ packages:
       postcss: ^8.2.15
     dependencies:
       postcss: 8.4.39
-      postcss-selector-parser: 6.0.10
+      postcss-selector-parser: 6.1.0
     dev: true
 
   /postcss-modules-extract-imports@3.1.0(postcss@8.4.39):
@@ -6054,7 +6046,7 @@ packages:
     dependencies:
       icss-utils: 5.1.0(postcss@8.4.39)
       postcss: 8.4.39
-      postcss-selector-parser: 6.0.10
+      postcss-selector-parser: 6.1.0
       postcss-value-parser: 4.2.0
     dev: true
 
@@ -6065,7 +6057,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       postcss: 8.4.39
-      postcss-selector-parser: 6.0.10
+      postcss-selector-parser: 6.1.0
     dev: true
 
   /postcss-modules-values@4.0.0(postcss@8.4.39):
@@ -6201,14 +6193,6 @@ packages:
       postcss-value-parser: 4.2.0
     dev: true
 
-  /postcss-selector-parser@6.0.10:
-    resolution: {integrity: sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==}
-    engines: {node: '>=4'}
-    dependencies:
-      cssesc: 3.0.0
-      util-deprecate: 1.0.2
-    dev: true
-
   /postcss-selector-parser@6.1.0:
     resolution: {integrity: sha512-UMz42UD0UY0EApS0ZL9o1XnLhSTtvvvLe5Dc2H2O56fvRZi+KulDyf5ctDhhtYJBGKStV2FL1fy6253cmLgqVQ==}
     engines: {node: '>=4'}
@@ -6235,7 +6219,7 @@ packages:
       postcss: ^8.2.15
     dependencies:
       postcss: 8.4.39
-      postcss-selector-parser: 6.0.10
+      postcss-selector-parser: 6.1.0
     dev: true
 
   /postcss-value-parser@4.2.0:
@@ -6590,7 +6574,7 @@ packages:
     engines: {node: '>=10.0.0'}
     hasBin: true
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /rollup@4.18.0:
@@ -7054,7 +7038,7 @@ packages:
     dependencies:
       browserslist: 4.23.1
       postcss: 8.4.39
-      postcss-selector-parser: 6.0.10
+      postcss-selector-parser: 6.1.0
     dev: true
 
   /supports-color@5.5.0:
@@ -7370,10 +7354,10 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
-  /vite-plugin-monaco-editor@1.1.0(monaco-editor@0.50.0):
-    resolution: {integrity: sha512-IvtUqZotrRoVqwT0PBBDIZPNraya3BxN/bfcNfnxZ5rkJiGcNtO5eAOWWSgT7zullIAEqQwxMU83yL9J5k7gww==}
+  /vite-plugin-monaco-editor@1.0.10(monaco-editor@0.50.0):
+    resolution: {integrity: sha512-7yTAFIE0SefjCmfnjrvXOl53wkxeSASc/ZIcB5tZeEK3vAmHhveV8y3f90Vp8b+PYdbUipjqf91mbFbSENkpcw==}
     peerDependencies:
-      monaco-editor: '>=0.33.0'
+      monaco-editor: 0.29.x
     dependencies:
       monaco-editor: 0.50.0
     dev: true
