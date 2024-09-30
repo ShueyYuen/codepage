@@ -39,6 +39,7 @@ const handleClick = function() {
   padding: 0 10px;
   user-select: none;
   color: #fff8;
+  cursor: pointer;
 }
 .radio__border {
   border-radius: 8px;

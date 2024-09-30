@@ -1,8 +1,6 @@
 <template>
   <teleport to="body">
-    <transition name="custom-classes" :duration="100"
-      enter-active-class="animate__animated animate__fadeInUp"
-      leave-active-class="animate__animated animate__fadeOutDown">
+    <transition :duration="100">
       <div class="code-modal" v-show="visible">
         <div
           v-if="mask"

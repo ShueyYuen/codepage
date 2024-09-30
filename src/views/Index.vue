@@ -4,39 +4,19 @@
       <div class="operation-group">
         <Radio v-model="showResult" :disabled="!currentTab">{{
           t("result")
-        }}</Radio>
+          }}</Radio>
         <SettingModel></SettingModel>
         <Tooltip :tips="t('refresh')">
           <Icons type="refresh" @click="bus.emit('hard-refresh')"></Icons>
         </Tooltip>
-        <Tooltip
-          :tips="t(preferStore.theme)"
-          v-if="preferStore.operation.theme"
-        >
-          <Icons
-            :type="preferStore.theme"
-            @click="preferStore.switchTheme()"
-          ></Icons>
+        <Tooltip :tips="t(preferStore.theme)" v-if="preferStore.operation.theme">
+          <Icons :type="preferStore.theme" @click="preferStore.switchTheme()"></Icons>
         </Tooltip>
         <Tooltip :tips="t('download')" v-if="preferStore.operation.download">
-          <a
-            download="index.html"
-            :href="`data:text/plain;charset=utf-8,${encodeURIComponent(
-              content
-            )}`"
-          >
-            <Icons type="download"></Icons>
-          </a>
+          <Icons type="download" @click="handleResultDownload"></Icons>
         </Tooltip>
-        <Tooltip
-          :tips="t(isFullscreen ? 'compress' : 'expand')"
-          v-if="preferStore.operation.fullscreen"
-        >
-          <Icons
-            v-if="isSupported"
-            @click="toggle"
-            :type="isFullscreen ? 'compress' : 'expand'"
-          />
+        <Tooltip :tips="t(isFullscreen ? 'compress' : 'expand')" v-if="preferStore.operation.fullscreen">
+          <Icons v-if="isSupported" @click="toggle" :type="isFullscreen ? 'compress' : 'expand'" />
         </Tooltip>
         <Tooltip :tips="t('github')" v-if="preferStore.operation.github">
           <a href="https://github.com/ShueyYuen/codepage" target="_blank">
@@ -50,11 +30,7 @@
     </template>
   </Tabs>
   <splitpanes @resize="handleSplitResize" @resized="handleSplitResized">
-    <pane
-      min-size="20"
-      :class="{ collapse: !currentTab || !showResult }"
-      :size="editorDisplaySize"
-    >
+    <pane min-size="20" :class="{ collapse: !currentTab || !showResult }" :size="editorDisplaySize">
       <keep-alive>
         <component :is="componentName"></component>
       </keep-alive>
@@ -83,12 +59,12 @@ import {
 } from "@/utils/tool.js";
 import { useCodeStore, usePreferStore } from "@/store/index.js";
 import SettingModel from "../components/SettingModel.vue";
-import content from "@/components/result.js";
 import Tooltip from "../components/base/Tooltip.vue";
 import CSSEditor from "@/components/CSSEditor.vue";
 import HTMLEditor from "@/components/HTMLEditor.vue";
 import JSEditor from "@/components/JSEditor.vue";
 import https from '../utils/http'
+import { download } from "../utils/download.js";
 
 import { useFullscreen } from "@vueuse/core";
 const { isSupported, isFullscreen, enter, exit, toggle } = useFullscreen(
@@ -161,8 +137,12 @@ const handleSplitResize = (size) => {
   editorSize.value = size[0].size;
   isDragging.value = true;
 };
-const handleSplitResized = () => {
-  isDragging.value = false;
+const handleSplitResized = () => isDragging.value = false;
+
+const handleResultDownload = () => {
+  const result = document.getElementById("result-show");
+  const content = result.getAttribute("srcdoc");
+  download("index.html", content);
 };
 </script>
 
@@ -171,20 +151,24 @@ const handleSplitResized = () => {
   width: 100%;
   height: 100%;
 }
+
 .content {
   flex-grow: 1;
   display: flex;
   position: relative;
 }
-.collapse + :deep(.splitpanes__splitter) {
+
+.collapse+ :deep(.splitpanes__splitter) {
   display: none;
 }
+
 :deep(.splitpanes__splitter) {
   min-width: 5px;
   background: rgb(201, 201, 201);
   margin-left: -1px;
   position: relative;
   transition: all 0.4s ease;
+
   &::after,
   &::before {
     content: "";
@@ -197,17 +181,21 @@ const handleSplitResized = () => {
     width: 1px;
     transition: all 0.4s ease;
   }
+
   &::before {
     left: 1px;
   }
+
   &:hover {
     background: #3f62c2;
+
     &::after,
     &::before {
       background: #fff;
     }
   }
 }
+
 .operation-group {
   background: var(--background);
   height: 26px;

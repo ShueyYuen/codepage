@@ -1,7 +1,7 @@
 <template>
-<router-link :to="shareUrl" replace @click="handleClick">
-  <Icons type="share" />
-</router-link>
+  <router-link :to="shareUrl" replace @click="handleClick">
+    <Icons type="share" />
+  </router-link>
 </template>
 
 <script setup>
