@@ -48,13 +48,15 @@ const codeStore = useCodeStore();
   background: rgba(0, 0, 0, 0.15);
   display: flex;
   column-gap: 30px;
+  flex-wrap: wrap;
 
   .ts-config-title {
     margin: 10px 0;
   }
 
   .ts-config-group {
-    flex-basis: 50%;
+    flex-basis: calc(50% - 15px);
+    flex-grow: 1;
 
     :deep(.setting-panel__title) {
       opacity: 0.8;
