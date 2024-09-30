@@ -15,6 +15,13 @@
       </div>
       <Radio type="switch" v-model="preferStore.online"></Radio>
     </div>
+
+    <div class="setting-item">
+      <div class="setting-panel__title">
+        Console
+      </div>
+      <Radio type="switch" v-model="preferStore.console"></Radio>
+    </div>
     <div class="setting-item">
       <div class="setting-panel__title">{{ t('language') }}</div>
       <Dropdown v-model="preferStore.language" style="width: 120px;" :options="languageOptions" />

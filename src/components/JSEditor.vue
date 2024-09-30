@@ -11,9 +11,26 @@ import bus from '@/utils/bus.js';
 let editor = null;
 const codeStore = useCodeStore();
 
+const compilerOptions = {
+  "target": "es6",
+  "strict": true,
+  "jsx": "preserve",
+  "moduleResolution": "node",
+  "esModuleInterop": true
+};
 watch(
-  () => codeStore.useTs,
-  (useTs) => monaco.editor.setModelLanguage(editor.getModel(), useTs ? 'typescript' : 'javascript')
+  () => [codeStore.useTs, codeStore.tsConfig],
+  ([useTs, tsConfig]) => {
+    Object.assign(compilerOptions, tsConfig);
+    monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
+      Object.assign(
+        monaco.languages.typescript.typescriptDefaults.getCompilerOptions(),
+        compilerOptions
+      )
+    );
+    editor && monaco.editor.setModelLanguage(editor.getModel(), useTs ? 'typescript' : 'javascript')
+  },
+  { deep: true, immediate: true }
 );
 
 const preferStore = usePreferStore();

@@ -21,4 +21,7 @@ export default {
   stuffHead: "附加到head",
   add: "添加",
   cssPreprocessor: "CSS预处理器",
+  languageAndEnvironment: "语言与环境",
+  compatibility: "兼容性",
+  clearConsole: "清空控制台输出",
 };

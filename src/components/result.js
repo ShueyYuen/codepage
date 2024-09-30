@@ -1,10 +1,8 @@
-import { h, ref, onMounted, watch, computed } from "vue";
-import { useDebounceFn } from '@vueuse/core';
-import bus from '@/utils/bus.js';
+import { ref, watch, computed } from "vue";
 import { useCodeStore, usePreferStore } from "@/store/index.js";
 import loadJavaScript from "@/utils/load";
 
-function useResult() {
+export function useResult() {
   const codeStore = useCodeStore();
   const preferStore = usePreferStore();
 
@@ -12,8 +10,8 @@ function useResult() {
   const css = ref("");
 
   watch(
-    () => [codeStore.js, codeStore.useTs],
-    ([v, useTs]) => {
+    () => [codeStore.js, codeStore.useTs, codeStore.tsConfig],
+    ([v, useTs, tsConfig]) => {
       if (!useTs) {
         return (js.value = v);
       }
@@ -24,8 +22,14 @@ function useResult() {
             "TypeScript",
             "https://cdn.jsdelivr.net/npm/typescript@5.6.2"
           )
-      ).then(() => (js.value = ts.transpile(v)));
-    }
+      ).then(
+        () =>
+          (js.value = ts.transpile(v, {
+            ...tsConfig,
+          }))
+      );
+    },
+    { deep: true }
   );
 
   watch(
@@ -86,6 +90,20 @@ function useResult() {
   </style>
 </head>
 <body>
+  <script>
+  // This is injected for console;
+  ['log', 'warn', 'error', 'info'].forEach((method) => {
+    const originMethod = console[method]; 
+    console[method] = function (...message) {
+      originMethod.call(console, ...message);
+      window.parent.postMessage({
+        source: 'result-show',
+        method,
+        content: message.join(' '),
+      });
+    };
+  });
+  </script>
   ${codeStore.html}
   <script>
     ${js.value}
@@ -93,39 +111,4 @@ function useResult() {
 </body>
 </html>`
   );
-}
-
-export default {
-  name: "RenderIFrame",
-  props: {
-    interaction: {
-      type: Boolean,
-      default: true
-    }
-  },
-  setup(props) {
-    const views = ref('');
-    const reloadView = () => views.value = content.value;
-    const debounceReloadView = useDebounceFn(reloadView, 2000);
-
-    const content = useResult();
-    watch(content, debounceReloadView);
-
-    onMounted(reloadView);
-    bus.on('hard-refresh', () => {
-      reloadView();
-      window.frames['result-show'].location.reload();
-    });
-    return () => h("iframe", {
-      id: 'result-show',
-      frameborder: '0',
-      allow: 'fullscreen',
-      sandbox: 'allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation',
-      srcdoc: views.value,
-      style: {
-        pointerEvents: props.interaction ? 'auto' : 'none',
-      },
-      name: 'result-show',
-    });
-  }
 }

@@ -45,7 +45,7 @@
 import { computed, ref } from "vue";
 import Tabs from "@/components/base/Tabs.vue";
 import Icons from "@/components/base/Icons.vue";
-import RenderIframe from "@/components/RenderIframe.js";
+import RenderIframe from "@/components/RenderResult.vue";
 import Radio from "@/components/base/Radio.vue";
 import { t } from "@/lang/index.js";
 import bus from "@/utils/bus.js";

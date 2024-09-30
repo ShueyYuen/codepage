@@ -58,6 +58,15 @@ console.log(
 * {
   padding: 0;
   margin: 0;
+  *::-webkit-scrollbar {
+    width: 6px;
+    background: var(--background);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--deactive);
+    border-radius: 3px;
+  }
 }
 a {
   text-decoration: none;

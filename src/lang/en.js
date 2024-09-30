@@ -20,4 +20,7 @@ export default {
   stuffHead: "Stuff to head",
   add: "Add",
   cssPreprocessor: "CSS Preprocessor",
+  languageAndEnvironment: "Language And Environment",
+  compatibility: "Backwards Compatibility",
+  clearConsole: "Clear Console",
 };

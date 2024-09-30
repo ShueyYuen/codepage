@@ -10,6 +10,7 @@ export const usePreferStore = defineStore({
     online: useStorage("online", false),
     language: useStorage("language", ""),
     debounce: useStorage("debounce", 2000),
+    console: useStorage('console', false),
     operation: useStorage("operation", {
       theme: true,
       download: true,
