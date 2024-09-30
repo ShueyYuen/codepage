@@ -3,11 +3,12 @@
     <input v-model="item.value" :placeholder="props.placeholder" @blur="blurred"/>
     <i class="codeicon codeicon-delete" @click="handleDelete(i)"></i>
   </div>
-  <div class="add-button" @click="handleAdd">{{ props.address }}</div>
+  <div class="add-button" @click="handleAdd">{{ t(props.address) }}</div>
 </template>
 
 <script setup>
 import { watch, ref } from 'vue';
+import { t } from '@/lang/index.js';
 
 const props = defineProps({
   modelValue: {
@@ -20,7 +21,7 @@ const props = defineProps({
   },
   address: {
     type: String,
-    default: 'Add',
+    default: 'add',
   }
 });
 const emits = defineEmits(['update:modelValue']);
@@ -66,7 +67,7 @@ const handleAdd = () => list.value.push({ value: '' });
 }
 .add-button {
   width: fit-content;
-  padding: 0 10px;
+  padding: 4px 12px;
   font-size: 14px;
   background: rgb(124, 131, 160);
   border-radius: 5px;

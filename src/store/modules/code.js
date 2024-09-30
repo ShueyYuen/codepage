@@ -1,17 +1,4 @@
 import { defineStore } from 'pinia'
-import loadJavaScript from '@/utils/load';
-import bus from '@/utils/bus.js';
-
-let sass = null;
-loadJavaScript('/scss/sass.js').then(() => {
-  sass = new window.Sass();
-  console.log('install Sass successfully');
-  bus.emit('compile', 'sass');
-});
-loadJavaScript('https://cdn.jsdelivr.net/npm/less@4').then(() => {
-  console.log('install Less successfully');
-  bus.emit('compile', 'less');
-});
 
 export const useCodeStore = defineStore({
   id: 'code',
@@ -23,7 +10,7 @@ export const useCodeStore = defineStore({
     cssLinks: [],
     jsLinks: [],
     cssPre: '',
-    compiledCss: '',
+    useTs: false,
   }),
   getters: {
     config: (state) => {
@@ -35,8 +22,16 @@ export const useCodeStore = defineStore({
         jses: state.jsLinks,
         csses: state.cssLinks,
         pre: state.cssPre,
+        ts: state.useTs ? 1 : 0,
       }
-      Object.keys(result).forEach(v => result[v]?.length || delete result[v]);
+      Object.entries(result).forEach(([key, value]) => {
+        if (value === '' || value === false || value === 0) {
+          return delete result[key];
+        }
+        if (Array.isArray(value) && value.length === 0) {
+          delete result[key];
+        }
+      });
       return result;
     }
   },
@@ -61,29 +56,7 @@ export const useCodeStore = defineStore({
       this.jsLinks = data.jses ?? [];
       this.cssLinks = data.csses ?? [];
       this.cssPre = data.pre ?? '';
-    },
-    compileStyle() {
-      switch(this.cssPre) {
-        case 'less':
-          window.less?.render(this.css)
-            .then((output) => {
-              this.compiledCss = output.css;
-            }).catch((e) => {
-              console.log(e.message,
-                `error at: line: ${e.line}, column: ${e.column}`);
-            });
-          break;
-        case 'scss':
-          sass?.compile(this.css, (output) => {
-            if (output.text)
-              this.compiledCss = output.text;
-            else console.log(output.message,
-              `error at: line: ${output.line}, column: ${output.column}`);
-          });
-          break;
-        default:
-          this.compiledCss = this.css;
-      }
+      this.useTs = Boolean(data.ts);
     }
   },
 });

@@ -13,9 +13,10 @@ emmetCSS(monaco);
 let editor = null;
 
 const codeStore = useCodeStore();
-watch(() => codeStore.cssPre, () => {
-  monaco.editor.setModelLanguage(editor.getModel(), codeStore.cssPre || 'css');
-});
+watch(
+  () => codeStore.cssPre,
+  (cssPre) => monaco.editor.setModelLanguage(editor.getModel(), cssPre || 'css')
+);
 
 const preferStore = usePreferStore();
 watch(() => preferStore.theme, () => {
@@ -32,9 +33,7 @@ onMounted(() => {
     theme: preferStore.editorTheme,
     readOnly: preferStore.readonly,
   });
-  editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
-    bus.emit('hard-refresh');
-  });
+  editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => bus.emit('hard-refresh'));
   editor.onDidChangeModelContent(() => {
     codeStore.setCSS(editor.getValue());
   });

@@ -146,7 +146,7 @@ const editorDisplaySize = computed(() =>
   showResult.value ? (currentTab.value ? editorSize.value : 0) : 100
 );
 const tabs = computed(() => [
-  { label: "JavaScript", value: "js" },
+  { label: codeStore.useTs ? "TypeScript" : "JavaScript", value: "js" },
   { label: "HTML", value: "html" },
   { label: cssMap[codeStore.cssPre], value: "css" },
   { value: "gap" },

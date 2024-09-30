@@ -29,9 +29,7 @@ onMounted(() => {
     readOnly: preferStore.readonly,
     wordWrap:'on',
   });
-  editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
-    bus.emit('hard-refresh');
-  });
+  editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => bus.emit('hard-refresh'));
   editor.onDidChangeModelContent(() => {
     codeStore.setHTML(editor.getValue());
   })
