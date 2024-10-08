@@ -124,6 +124,8 @@ const handleClearConsole = () => (consoleOut.value.innerHTML = "");
       .time-span {
         opacity: 0.5;
         padding-right: 8px;
+        user-select: none;
+        pointer-events: none;
       }
     }
   }
