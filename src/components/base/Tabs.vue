@@ -80,6 +80,15 @@ const selectedIndex = computed(() =>
     flex-grow: 2;
   }
 }
+
+@media screen and (max-width: 767px) {
+  .switch-tabs {
+    :deep(&__item) {
+      padding: 0 14px;
+    }
+  }
+}
+
 :deep(.disable) {
   opacity: .8;
   cursor: not-allowed;
@@ -151,5 +160,4 @@ const selectedIndex = computed(() =>
       // transform: translateX(-50%);
     }
   }
-}
-</style>
+}</style>

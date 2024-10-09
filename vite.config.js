@@ -11,16 +11,16 @@ export default defineConfig({
   base: "./",
   resolve: {
     alias: {
-      "@": resolve(__dirname, "./src")
-    }
+      "@": resolve(__dirname, "./src"),
+    },
   },
   plugins: [
     vue(),
     monacoEditorPlugin({}),
     visualizer(),
   ],
-  build:{
-    minify: 'terser',
+  build: {
+    minify: "terser",
     terserOptions: {
       toplevel: true,
       ecma: 2015,
@@ -28,16 +28,16 @@ export default defineConfig({
         ecma: 2015,
         passes: 3,
         drop_console: true,
-        drop_debugger: true
-      }
+        drop_debugger: true,
+      },
     },
-    target: 'es2015',
+    target: "es2015",
     rollupOptions: {
       output: {
         manualChunks: {
-          'monaco-editor': ['monaco-editor']
-        }
-      }
+          "monaco-editor": ["monaco-editor"],
+        },
+      },
     },
   },
   optimizeDeps: {
@@ -46,7 +46,7 @@ export default defineConfig({
       `${prefix}/language/css/css.worker`,
       `${prefix}/language/html/html.worker`,
       `${prefix}/language/typescript/ts.worker`,
-      `${prefix}/editor/editor.worker`
-    ]
-  }
+      `${prefix}/editor/editor.worker`,
+    ],
+  },
 });
