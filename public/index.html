@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="//at.alicdn.com/t/font_3371383_yuwiisn23t.css"
+    />
+    <title>CodePage - A beautiful way to display your code in blog</title>
+    <style>
+      .support-info {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        color: #fff6;
+        user-select: none;
+        font-size: 10px;
+      }
+      .support-info a {
+        color: #fffa;
+      }
+      .point-none {
+        pointer-events: none;
+      }
+      @keyframes rota {
+        0% {
+          transform: rotate(0);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      .loading-first-page {
+        display: -webkit-flex;
+        display: flex;
+        position: absolute;
+        top: calc(50% - 150px);
+        left: calc(50% - 150px);
+        width: 300px;
+        height: 300px;
+        font-size: 2em;
+        font-weight: 900;
+        color: #fafafa;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+      }
+      .loading-first-page div {
+        z-index: 100;
+      }
+      .loading-first-page span {
+        display: inline-flex;
+        position: absolute;
+        border: none;
+        border-radius: 40% 40% 65% 30% / 30% 30% 80% 80%;
+        width: 300px;
+        height: 300px;
+        background-color: var(--theme-color, #8eada9);
+        transition: all 0.5s linear;
+        filter: opacity(30%);
+      }
+      .loading-first-page span:nth-child(1) {
+        animation: rota 10s infinite linear;
+      }
+      .loading-first-page span:nth-child(2) {
+        animation: rota 3.5s infinite linear;
+      }
+      .loading-first-page span:nth-child(3) {
+        animation: rota 7.6s infinite linear;
+      }
+      body {
+        padding: 0;
+        margin: 0;
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      <strong
+        >We're sorry but vue-cli-3-typescript-demo doesn't work properly without
+        JavaScript enabled. Please enable it to continue.</strong
+      >
+    </noscript>
+    <div id="app">
+      <div class="loading-first-page">
+        <span></span>
+        <span></span>
+        <span></span>
+        <div>LOADING</div>
+      </div>
+    </div>
+    <div class="support-info">
+      <span class="point-none">supported by </span>
+      <a href="https://github.com/ShueyYuen/codepage" target="_blank"
+        >ShueyYuen</a
+      >
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
