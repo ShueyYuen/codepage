@@ -4,13 +4,28 @@ const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 module.exports = defineConfig({
   publicPath: "./",
   terser: {
-    minify: 'swc',
+    minify: "swc",
   },
   configureWebpack: {
     cache: { type: "filesystem" },
-    plugins: [new MonacoWebpackPlugin({
-      languages: ['typescript', 'css', 'less', 'scss', 'html', 'javascript'],
-      globalAPI: true,
-    })],
+    module: {
+      rules: [
+        {
+          test: /\.css$/,
+          use: ["less-loader"],
+        },
+        {
+          test: /\.ttf$/,
+          type: "asset/resource",
+        },
+      ],
+    },
+    plugins: [
+      new MonacoWebpackPlugin({
+        publicPath: "/",
+        languages: ["typescript", "css", "less", "scss", "html", "javascript"],
+        globalAPI: true,
+      }),
+    ],
   },
 });

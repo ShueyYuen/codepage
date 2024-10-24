@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import * as monaco from 'monaco-editor';
+import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { onMounted, onUnmounted, watch } from 'vue';
 import { useCodeStore, usePreferStore } from '@/store/index.js';
 import { emmetHTML } from "emmet-monaco-es";
