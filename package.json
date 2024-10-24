@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",
+    "@swc/core": "^1.7.39",
     "@vue/cli-plugin-router": "^5.0.1",
     "@vue/cli-service": "^5.0.1",
     "less": "4.2.0",

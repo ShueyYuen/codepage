@@ -42,24 +42,27 @@ importers:
       '@babel/core':
         specifier: ^7.17.5
         version: 7.25.9
+      '@swc/core':
+        specifier: ^1.7.39
+        version: 1.7.39
       '@vue/cli-plugin-router':
         specifier: ^5.0.1
-        version: 5.0.8(@vue/cli-service@5.0.8(@vue/compiler-sfc@3.4.31)(less-loader@12.2.0(less@4.2.0)(webpack@5.72.0))(lodash@4.17.21)(vue@3.4.31)(webpack-sources@3.2.3))
+        version: 5.0.8(@vue/cli-service@5.0.8(@swc/core@1.7.39)(@vue/compiler-sfc@3.4.31)(less-loader@12.2.0(less@4.2.0)(webpack@5.72.0(@swc/core@1.7.39)))(lodash@4.17.21)(vue@3.4.31)(webpack-sources@3.2.3))
       '@vue/cli-service':
         specifier: ^5.0.1
-        version: 5.0.8(@vue/compiler-sfc@3.4.31)(less-loader@12.2.0(less@4.2.0)(webpack@5.72.0))(lodash@4.17.21)(vue@3.4.31)(webpack-sources@3.2.3)
+        version: 5.0.8(@swc/core@1.7.39)(@vue/compiler-sfc@3.4.31)(less-loader@12.2.0(less@4.2.0)(webpack@5.72.0(@swc/core@1.7.39)))(lodash@4.17.21)(vue@3.4.31)(webpack-sources@3.2.3)
       less:
         specifier: 4.2.0
         version: 4.2.0
       less-loader:
         specifier: 12.2.0
-        version: 12.2.0(less@4.2.0)(webpack@5.72.0)
+        version: 12.2.0(less@4.2.0)(webpack@5.72.0(@swc/core@1.7.39))
       monaco-editor-webpack-plugin:
         specifier: ^7.1.0
-        version: 7.1.0(monaco-editor@0.52.0)(webpack@5.72.0)
+        version: 7.1.0(monaco-editor@0.52.0)(webpack@5.72.0(@swc/core@1.7.39))
       webpack:
         specifier: ^5.67.0
-        version: 5.72.0
+        version: 5.72.0(@swc/core@1.7.39)
 
 packages:
 
@@ -230,6 +233,81 @@ packages:
 
   '@soda/get-current-script@1.0.2':
     resolution: {integrity: sha512-T7VNNlYVM1SgQ+VsMYhnDkcGmWhQdL0bDyGm5TlQ3GBXnJscEClUUOKduWTmm2zCnvNLC1hc3JpuXjs/nFOc5w==}
+
+  '@swc/core-darwin-arm64@1.7.39':
+    resolution: {integrity: sha512-o2nbEL6scMBMCTvY9OnbyVXtepLuNbdblV9oNJEFia5v5eGj9WMrnRQiylH3Wp/G2NYkW7V1/ZVW+kfvIeYe9A==}
+    engines: {node: '>=10'}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@swc/core-darwin-x64@1.7.39':
+    resolution: {integrity: sha512-qMlv3XPgtPi/Fe11VhiPDHSLiYYk2dFYl747oGsHZPq+6tIdDQjIhijXPcsUHIXYDyG7lNpODPL8cP/X1sc9MA==}
+    engines: {node: '>=10'}
+    cpu: [x64]
+    os: [darwin]
+
+  '@swc/core-linux-arm-gnueabihf@1.7.39':
+    resolution: {integrity: sha512-NP+JIkBs1ZKnpa3Lk2W1kBJMwHfNOxCUJXuTa2ckjFsuZ8OUu2gwdeLFkTHbR43dxGwH5UzSmuGocXeMowra/Q==}
+    engines: {node: '>=10'}
+    cpu: [arm]
+    os: [linux]
+
+  '@swc/core-linux-arm64-gnu@1.7.39':
+    resolution: {integrity: sha512-cPc+/HehyHyHcvAsk3ML/9wYcpWVIWax3YBaA+ScecJpSE04l/oBHPfdqKUPslqZ+Gcw0OWnIBGJT/fBZW2ayw==}
+    engines: {node: '>=10'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@swc/core-linux-arm64-musl@1.7.39':
+    resolution: {integrity: sha512-8RxgBC6ubFem66bk9XJ0vclu3exJ6eD7x7CwDhp5AD/tulZslTYXM7oNPjEtje3xxabXuj/bEUMNvHZhQRFdqA==}
+    engines: {node: '>=10'}
+    cpu: [arm64]
+    os: [linux]
+
+  '@swc/core-linux-x64-gnu@1.7.39':
+    resolution: {integrity: sha512-3gtCPEJuXLQEolo9xsXtuPDocmXQx12vewEyFFSMSjOfakuPOBmOQMa0sVL8Wwius8C1eZVeD1fgk0omMqeC+Q==}
+    engines: {node: '>=10'}
+    cpu: [x64]
+    os: [linux]
+
+  '@swc/core-linux-x64-musl@1.7.39':
+    resolution: {integrity: sha512-mg39pW5x/eqqpZDdtjZJxrUvQNSvJF4O8wCl37fbuFUqOtXs4TxsjZ0aolt876HXxxhsQl7rS+N4KioEMSgTZw==}
+    engines: {node: '>=10'}
+    cpu: [x64]
+    os: [linux]
+
+  '@swc/core-win32-arm64-msvc@1.7.39':
+    resolution: {integrity: sha512-NZwuS0mNJowH3e9bMttr7B1fB8bW5svW/yyySigv9qmV5VcQRNz1kMlCvrCLYRsa93JnARuiaBI6FazSeG8mpA==}
+    engines: {node: '>=10'}
+    cpu: [arm64]
+    os: [win32]
+
+  '@swc/core-win32-ia32-msvc@1.7.39':
+    resolution: {integrity: sha512-qFmvv5UExbJPXhhvCVDBnjK5Duqxr048dlVB6ZCgGzbRxuarOlawCzzLK4N172230pzlAWGLgn9CWl3+N6zfHA==}
+    engines: {node: '>=10'}
+    cpu: [ia32]
+    os: [win32]
+
+  '@swc/core-win32-x64-msvc@1.7.39':
+    resolution: {integrity: sha512-o+5IMqgOtj9+BEOp16atTfBgCogVak9svhBpwsbcJQp67bQbxGYhAPPDW/hZ2rpSSF7UdzbY9wudoX9G4trcuQ==}
+    engines: {node: '>=10'}
+    cpu: [x64]
+    os: [win32]
+
+  '@swc/core@1.7.39':
+    resolution: {integrity: sha512-jns6VFeOT49uoTKLWIEfiQqJAlyqldNAt80kAr8f7a5YjX0zgnG3RBiLMpksx4Ka4SlK4O6TJ/lumIM3Trp82g==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      '@swc/helpers': '*'
+    peerDependenciesMeta:
+      '@swc/helpers':
+        optional: true
+
+  '@swc/counter@0.1.3':
+    resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
+
+  '@swc/types@0.1.13':
+    resolution: {integrity: sha512-JL7eeCk6zWCbiYQg2xQSdLXQJl8Qoc9rXmG2cEKvHe3CKwMHwHGpfOb8frzNLmbycOo6I51qxnLnn9ESf4I20Q==}
 
   '@trysound/sax@0.2.0':
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
@@ -3234,15 +3312,67 @@ snapshots:
 
   '@sideway/pinpoint@2.0.0': {}
 
-  '@soda/friendly-errors-webpack-plugin@1.8.1(webpack@5.72.0)':
+  '@soda/friendly-errors-webpack-plugin@1.8.1(webpack@5.72.0(@swc/core@1.7.39))':
     dependencies:
       chalk: 3.0.0
       error-stack-parser: 2.1.4
       string-width: 4.2.3
       strip-ansi: 6.0.1
-      webpack: 5.72.0
+      webpack: 5.72.0(@swc/core@1.7.39)
 
   '@soda/get-current-script@1.0.2': {}
+
+  '@swc/core-darwin-arm64@1.7.39':
+    optional: true
+
+  '@swc/core-darwin-x64@1.7.39':
+    optional: true
+
+  '@swc/core-linux-arm-gnueabihf@1.7.39':
+    optional: true
+
+  '@swc/core-linux-arm64-gnu@1.7.39':
+    optional: true
+
+  '@swc/core-linux-arm64-musl@1.7.39':
+    optional: true
+
+  '@swc/core-linux-x64-gnu@1.7.39':
+    optional: true
+
+  '@swc/core-linux-x64-musl@1.7.39':
+    optional: true
+
+  '@swc/core-win32-arm64-msvc@1.7.39':
+    optional: true
+
+  '@swc/core-win32-ia32-msvc@1.7.39':
+    optional: true
+
+  '@swc/core-win32-x64-msvc@1.7.39':
+    optional: true
+
+  '@swc/core@1.7.39':
+    dependencies:
+      '@swc/counter': 0.1.3
+      '@swc/types': 0.1.13
+    optionalDependencies:
+      '@swc/core-darwin-arm64': 1.7.39
+      '@swc/core-darwin-x64': 1.7.39
+      '@swc/core-linux-arm-gnueabihf': 1.7.39
+      '@swc/core-linux-arm64-gnu': 1.7.39
+      '@swc/core-linux-arm64-musl': 1.7.39
+      '@swc/core-linux-x64-gnu': 1.7.39
+      '@swc/core-linux-x64-musl': 1.7.39
+      '@swc/core-win32-arm64-msvc': 1.7.39
+      '@swc/core-win32-ia32-msvc': 1.7.39
+      '@swc/core-win32-x64-msvc': 1.7.39
+
+  '@swc/counter@0.1.3': {}
+
+  '@swc/types@0.1.13':
+    dependencies:
+      '@swc/counter': 0.1.3
 
   '@trysound/sax@0.2.0': {}
 
@@ -3356,29 +3486,29 @@ snapshots:
 
   '@vue/cli-overlay@5.0.8': {}
 
-  '@vue/cli-plugin-router@5.0.8(@vue/cli-service@5.0.8(@vue/compiler-sfc@3.4.31)(less-loader@12.2.0(less@4.2.0)(webpack@5.72.0))(lodash@4.17.21)(vue@3.4.31)(webpack-sources@3.2.3))':
+  '@vue/cli-plugin-router@5.0.8(@vue/cli-service@5.0.8(@swc/core@1.7.39)(@vue/compiler-sfc@3.4.31)(less-loader@12.2.0(less@4.2.0)(webpack@5.72.0(@swc/core@1.7.39)))(lodash@4.17.21)(vue@3.4.31)(webpack-sources@3.2.3))':
     dependencies:
-      '@vue/cli-service': 5.0.8(@vue/compiler-sfc@3.4.31)(less-loader@12.2.0(less@4.2.0)(webpack@5.72.0))(lodash@4.17.21)(vue@3.4.31)(webpack-sources@3.2.3)
+      '@vue/cli-service': 5.0.8(@swc/core@1.7.39)(@vue/compiler-sfc@3.4.31)(less-loader@12.2.0(less@4.2.0)(webpack@5.72.0(@swc/core@1.7.39)))(lodash@4.17.21)(vue@3.4.31)(webpack-sources@3.2.3)
       '@vue/cli-shared-utils': 5.0.8
     transitivePeerDependencies:
       - encoding
 
-  '@vue/cli-plugin-vuex@5.0.8(@vue/cli-service@5.0.8(@vue/compiler-sfc@3.4.31)(less-loader@12.2.0(less@4.2.0)(webpack@5.72.0))(lodash@4.17.21)(vue@3.4.31)(webpack-sources@3.2.3))':
+  '@vue/cli-plugin-vuex@5.0.8(@vue/cli-service@5.0.8(@swc/core@1.7.39)(@vue/compiler-sfc@3.4.31)(less-loader@12.2.0(less@4.2.0)(webpack@5.72.0(@swc/core@1.7.39)))(lodash@4.17.21)(vue@3.4.31)(webpack-sources@3.2.3))':
     dependencies:
-      '@vue/cli-service': 5.0.8(@vue/compiler-sfc@3.4.31)(less-loader@12.2.0(less@4.2.0)(webpack@5.72.0))(lodash@4.17.21)(vue@3.4.31)(webpack-sources@3.2.3)
+      '@vue/cli-service': 5.0.8(@swc/core@1.7.39)(@vue/compiler-sfc@3.4.31)(less-loader@12.2.0(less@4.2.0)(webpack@5.72.0(@swc/core@1.7.39)))(lodash@4.17.21)(vue@3.4.31)(webpack-sources@3.2.3)
 
-  '@vue/cli-service@5.0.8(@vue/compiler-sfc@3.4.31)(less-loader@12.2.0(less@4.2.0)(webpack@5.72.0))(lodash@4.17.21)(vue@3.4.31)(webpack-sources@3.2.3)':
+  '@vue/cli-service@5.0.8(@swc/core@1.7.39)(@vue/compiler-sfc@3.4.31)(less-loader@12.2.0(less@4.2.0)(webpack@5.72.0(@swc/core@1.7.39)))(lodash@4.17.21)(vue@3.4.31)(webpack-sources@3.2.3)':
     dependencies:
       '@babel/helper-compilation-targets': 7.25.9
-      '@soda/friendly-errors-webpack-plugin': 1.8.1(webpack@5.72.0)
+      '@soda/friendly-errors-webpack-plugin': 1.8.1(webpack@5.72.0(@swc/core@1.7.39))
       '@soda/get-current-script': 1.0.2
       '@types/minimist': 1.2.5
       '@vue/cli-overlay': 5.0.8
-      '@vue/cli-plugin-router': 5.0.8(@vue/cli-service@5.0.8(@vue/compiler-sfc@3.4.31)(less-loader@12.2.0(less@4.2.0)(webpack@5.72.0))(lodash@4.17.21)(vue@3.4.31)(webpack-sources@3.2.3))
-      '@vue/cli-plugin-vuex': 5.0.8(@vue/cli-service@5.0.8(@vue/compiler-sfc@3.4.31)(less-loader@12.2.0(less@4.2.0)(webpack@5.72.0))(lodash@4.17.21)(vue@3.4.31)(webpack-sources@3.2.3))
+      '@vue/cli-plugin-router': 5.0.8(@vue/cli-service@5.0.8(@swc/core@1.7.39)(@vue/compiler-sfc@3.4.31)(less-loader@12.2.0(less@4.2.0)(webpack@5.72.0(@swc/core@1.7.39)))(lodash@4.17.21)(vue@3.4.31)(webpack-sources@3.2.3))
+      '@vue/cli-plugin-vuex': 5.0.8(@vue/cli-service@5.0.8(@swc/core@1.7.39)(@vue/compiler-sfc@3.4.31)(less-loader@12.2.0(less@4.2.0)(webpack@5.72.0(@swc/core@1.7.39)))(lodash@4.17.21)(vue@3.4.31)(webpack-sources@3.2.3))
       '@vue/cli-shared-utils': 5.0.8
       '@vue/component-compiler-utils': 3.3.0(lodash@4.17.21)
-      '@vue/vue-loader-v15': vue-loader@15.11.1(@vue/compiler-sfc@3.4.31)(css-loader@6.11.0(webpack@5.72.0))(lodash@4.17.21)(webpack@5.72.0)
+      '@vue/vue-loader-v15': vue-loader@15.11.1(@vue/compiler-sfc@3.4.31)(css-loader@6.11.0(webpack@5.72.0(@swc/core@1.7.39)))(lodash@4.17.21)(webpack@5.72.0(@swc/core@1.7.39))
       '@vue/web-component-wrapper': 1.3.0
       acorn: 8.12.1
       acorn-walk: 8.3.4
@@ -3389,9 +3519,9 @@ snapshots:
       cli-highlight: 2.1.11
       clipboardy: 2.3.0
       cliui: 7.0.4
-      copy-webpack-plugin: 9.1.0(webpack@5.72.0)
-      css-loader: 6.11.0(webpack@5.72.0)
-      css-minimizer-webpack-plugin: 3.4.1(webpack@5.72.0)
+      copy-webpack-plugin: 9.1.0(webpack@5.72.0(@swc/core@1.7.39))
+      css-loader: 6.11.0(webpack@5.72.0(@swc/core@1.7.39))
+      css-minimizer-webpack-plugin: 3.4.1(webpack@5.72.0(@swc/core@1.7.39))
       cssnano: 5.1.15(postcss@8.4.47)
       debug: 4.3.4
       default-gateway: 6.0.3
@@ -3400,32 +3530,32 @@ snapshots:
       fs-extra: 9.1.0
       globby: 11.1.0
       hash-sum: 2.0.0
-      html-webpack-plugin: 5.6.3(webpack@5.72.0)
+      html-webpack-plugin: 5.6.3(webpack@5.72.0(@swc/core@1.7.39))
       is-file-esm: 1.0.0
       launch-editor-middleware: 2.9.1
       lodash.defaultsdeep: 4.6.1
       lodash.mapvalues: 4.6.0
-      mini-css-extract-plugin: 2.9.1(webpack@5.72.0)
+      mini-css-extract-plugin: 2.9.1(webpack@5.72.0(@swc/core@1.7.39))
       minimist: 1.2.8
       module-alias: 2.2.3
       portfinder: 1.0.32
       postcss: 8.4.47
-      postcss-loader: 6.2.1(postcss@8.4.47)(webpack@5.72.0)
-      progress-webpack-plugin: 1.0.16(webpack@5.72.0)
+      postcss-loader: 6.2.1(postcss@8.4.47)(webpack@5.72.0(@swc/core@1.7.39))
+      progress-webpack-plugin: 1.0.16(webpack@5.72.0(@swc/core@1.7.39))
       ssri: 8.0.1
-      terser-webpack-plugin: 5.3.1(webpack@5.72.0)
-      thread-loader: 3.0.4(webpack@5.72.0)
-      vue-loader: 17.4.2(@vue/compiler-sfc@3.4.31)(vue@3.4.31)(webpack@5.72.0)
+      terser-webpack-plugin: 5.3.1(@swc/core@1.7.39)(webpack@5.72.0(@swc/core@1.7.39))
+      thread-loader: 3.0.4(webpack@5.72.0(@swc/core@1.7.39))
+      vue-loader: 17.4.2(@vue/compiler-sfc@3.4.31)(vue@3.4.31)(webpack@5.72.0(@swc/core@1.7.39))
       vue-style-loader: 4.1.3
-      webpack: 5.72.0
+      webpack: 5.72.0(@swc/core@1.7.39)
       webpack-bundle-analyzer: 4.10.2
       webpack-chain: 6.5.1
-      webpack-dev-server: 4.15.2(debug@4.3.4)(webpack@5.72.0)
+      webpack-dev-server: 4.15.2(debug@4.3.4)(webpack@5.72.0(@swc/core@1.7.39))
       webpack-merge: 5.10.0
       webpack-virtual-modules: 0.4.6
       whatwg-fetch: 3.6.20
     optionalDependencies:
-      less-loader: 12.2.0(less@4.2.0)(webpack@5.72.0)
+      less-loader: 12.2.0(less@4.2.0)(webpack@5.72.0(@swc/core@1.7.39))
       webpack-sources: 3.2.3
     transitivePeerDependencies:
       - '@parcel/css'
@@ -4082,7 +4212,7 @@ snapshots:
     dependencies:
       is-what: 3.14.1
 
-  copy-webpack-plugin@9.1.0(webpack@5.72.0):
+  copy-webpack-plugin@9.1.0(webpack@5.72.0(@swc/core@1.7.39)):
     dependencies:
       fast-glob: 3.3.2
       glob-parent: 6.0.2
@@ -4090,7 +4220,7 @@ snapshots:
       normalize-path: 3.0.0
       schema-utils: 3.1.1
       serialize-javascript: 6.0.0
-      webpack: 5.72.0
+      webpack: 5.72.0(@swc/core@1.7.39)
 
   core-util-is@1.0.3: {}
 
@@ -4120,7 +4250,7 @@ snapshots:
     dependencies:
       postcss: 8.4.47
 
-  css-loader@6.11.0(webpack@5.72.0):
+  css-loader@6.11.0(webpack@5.72.0(@swc/core@1.7.39)):
     dependencies:
       icss-utils: 5.1.0(postcss@8.4.47)
       postcss: 8.4.47
@@ -4131,9 +4261,9 @@ snapshots:
       postcss-value-parser: 4.2.0
       semver: 7.6.3
     optionalDependencies:
-      webpack: 5.72.0
+      webpack: 5.72.0(@swc/core@1.7.39)
 
-  css-minimizer-webpack-plugin@3.4.1(webpack@5.72.0):
+  css-minimizer-webpack-plugin@3.4.1(webpack@5.72.0(@swc/core@1.7.39)):
     dependencies:
       cssnano: 5.1.15(postcss@8.4.47)
       jest-worker: 27.5.1
@@ -4141,7 +4271,7 @@ snapshots:
       schema-utils: 4.2.0
       serialize-javascript: 6.0.0
       source-map: 0.6.1
-      webpack: 5.72.0
+      webpack: 5.72.0(@swc/core@1.7.39)
 
   css-select@4.3.0:
     dependencies:
@@ -4632,7 +4762,7 @@ snapshots:
       relateurl: 0.2.7
       terser: 5.13.1
 
-  html-webpack-plugin@5.6.3(webpack@5.72.0):
+  html-webpack-plugin@5.6.3(webpack@5.72.0(@swc/core@1.7.39)):
     dependencies:
       '@types/html-minifier-terser': 6.1.0
       html-minifier-terser: 6.1.0
@@ -4640,7 +4770,7 @@ snapshots:
       pretty-error: 4.0.0
       tapable: 2.2.1
     optionalDependencies:
-      webpack: 5.72.0
+      webpack: 5.72.0(@swc/core@1.7.39)
 
   htmlparser2@6.1.0:
     dependencies:
@@ -4837,11 +4967,11 @@ snapshots:
       picocolors: 1.1.1
       shell-quote: 1.8.1
 
-  less-loader@12.2.0(less@4.2.0)(webpack@5.72.0):
+  less-loader@12.2.0(less@4.2.0)(webpack@5.72.0(@swc/core@1.7.39)):
     dependencies:
       less: 4.2.0
     optionalDependencies:
-      webpack: 5.72.0
+      webpack: 5.72.0(@swc/core@1.7.39)
 
   less@4.2.0:
     dependencies:
@@ -4966,11 +5096,11 @@ snapshots:
 
   mimic-fn@2.1.0: {}
 
-  mini-css-extract-plugin@2.9.1(webpack@5.72.0):
+  mini-css-extract-plugin@2.9.1(webpack@5.72.0(@swc/core@1.7.39)):
     dependencies:
       schema-utils: 4.2.0
       tapable: 2.2.1
-      webpack: 5.72.0
+      webpack: 5.72.0(@swc/core@1.7.39)
 
   minimalistic-assert@1.0.1: {}
 
@@ -4992,11 +5122,11 @@ snapshots:
 
   module-alias@2.2.3: {}
 
-  monaco-editor-webpack-plugin@7.1.0(monaco-editor@0.52.0)(webpack@5.72.0):
+  monaco-editor-webpack-plugin@7.1.0(monaco-editor@0.52.0)(webpack@5.72.0(@swc/core@1.7.39)):
     dependencies:
       loader-utils: 2.0.4
       monaco-editor: 0.52.0
-      webpack: 5.72.0
+      webpack: 5.72.0(@swc/core@1.7.39)
 
   monaco-editor@0.52.0: {}
 
@@ -5240,13 +5370,13 @@ snapshots:
     dependencies:
       postcss: 8.4.47
 
-  postcss-loader@6.2.1(postcss@8.4.47)(webpack@5.72.0):
+  postcss-loader@6.2.1(postcss@8.4.47)(webpack@5.72.0(@swc/core@1.7.39)):
     dependencies:
       cosmiconfig: 7.1.0
       klona: 2.0.6
       postcss: 8.4.47
       semver: 7.6.3
-      webpack: 5.72.0
+      webpack: 5.72.0(@swc/core@1.7.39)
 
   postcss-merge-longhand@5.1.7(postcss@8.4.47):
     dependencies:
@@ -5409,12 +5539,12 @@ snapshots:
 
   process-nextick-args@2.0.1: {}
 
-  progress-webpack-plugin@1.0.16(webpack@5.72.0):
+  progress-webpack-plugin@1.0.16(webpack@5.72.0(@swc/core@1.7.39)):
     dependencies:
       chalk: 2.4.2
       figures: 2.0.0
       log-update: 2.3.0
-      webpack: 5.72.0
+      webpack: 5.72.0(@swc/core@1.7.39)
 
   proxy-addr@2.0.7:
     dependencies:
@@ -5792,14 +5922,16 @@ snapshots:
 
   tapable@2.2.1: {}
 
-  terser-webpack-plugin@5.3.1(webpack@5.72.0):
+  terser-webpack-plugin@5.3.1(@swc/core@1.7.39)(webpack@5.72.0(@swc/core@1.7.39)):
     dependencies:
       jest-worker: 27.5.1
       schema-utils: 3.1.1
       serialize-javascript: 6.0.0
       source-map: 0.6.1
       terser: 5.13.1
-      webpack: 5.72.0
+      webpack: 5.72.0(@swc/core@1.7.39)
+    optionalDependencies:
+      '@swc/core': 1.7.39
 
   terser@5.13.1:
     dependencies:
@@ -5816,14 +5948,14 @@ snapshots:
     dependencies:
       any-promise: 1.3.0
 
-  thread-loader@3.0.4(webpack@5.72.0):
+  thread-loader@3.0.4(webpack@5.72.0(@swc/core@1.7.39)):
     dependencies:
       json-parse-better-errors: 1.0.2
       loader-runner: 4.3.0
       loader-utils: 2.0.4
       neo-async: 2.6.2
       schema-utils: 3.1.1
-      webpack: 5.72.0
+      webpack: 5.72.0(@swc/core@1.7.39)
 
   thunky@1.1.0: {}
 
@@ -5902,15 +6034,15 @@ snapshots:
       '@vue/devtools-api': 6.6.3
       vue: 3.4.31
 
-  vue-loader@15.11.1(@vue/compiler-sfc@3.4.31)(css-loader@6.11.0(webpack@5.72.0))(lodash@4.17.21)(webpack@5.72.0):
+  vue-loader@15.11.1(@vue/compiler-sfc@3.4.31)(css-loader@6.11.0(webpack@5.72.0(@swc/core@1.7.39)))(lodash@4.17.21)(webpack@5.72.0(@swc/core@1.7.39)):
     dependencies:
       '@vue/component-compiler-utils': 3.3.0(lodash@4.17.21)
-      css-loader: 6.11.0(webpack@5.72.0)
+      css-loader: 6.11.0(webpack@5.72.0(@swc/core@1.7.39))
       hash-sum: 1.0.2
       loader-utils: 1.4.2
       vue-hot-reload-api: 2.3.4
       vue-style-loader: 4.1.3
-      webpack: 5.72.0
+      webpack: 5.72.0(@swc/core@1.7.39)
     optionalDependencies:
       '@vue/compiler-sfc': 3.4.31
     transitivePeerDependencies:
@@ -5968,12 +6100,12 @@ snapshots:
       - walrus
       - whiskers
 
-  vue-loader@17.4.2(@vue/compiler-sfc@3.4.31)(vue@3.4.31)(webpack@5.72.0):
+  vue-loader@17.4.2(@vue/compiler-sfc@3.4.31)(vue@3.4.31)(webpack@5.72.0(@swc/core@1.7.39)):
     dependencies:
       chalk: 4.1.2
       hash-sum: 2.0.0
       watchpack: 2.4.1
-      webpack: 5.72.0
+      webpack: 5.72.0(@swc/core@1.7.39)
     optionalDependencies:
       '@vue/compiler-sfc': 3.4.31
       vue: 3.4.31
@@ -6038,16 +6170,16 @@ snapshots:
       deepmerge: 1.5.2
       javascript-stringify: 2.1.0
 
-  webpack-dev-middleware@5.3.4(webpack@5.72.0):
+  webpack-dev-middleware@5.3.4(webpack@5.72.0(@swc/core@1.7.39)):
     dependencies:
       colorette: 2.0.20
       memfs: 3.5.3
       mime-types: 2.1.35
       range-parser: 1.2.1
       schema-utils: 4.2.0
-      webpack: 5.72.0
+      webpack: 5.72.0(@swc/core@1.7.39)
 
-  webpack-dev-server@4.15.2(debug@4.3.4)(webpack@5.72.0):
+  webpack-dev-server@4.15.2(debug@4.3.4)(webpack@5.72.0(@swc/core@1.7.39)):
     dependencies:
       '@types/bonjour': 3.5.13
       '@types/connect-history-api-fallback': 1.5.4
@@ -6077,10 +6209,10 @@ snapshots:
       serve-index: 1.9.1
       sockjs: 0.3.24
       spdy: 4.0.2
-      webpack-dev-middleware: 5.3.4(webpack@5.72.0)
+      webpack-dev-middleware: 5.3.4(webpack@5.72.0(@swc/core@1.7.39))
       ws: 8.18.0
     optionalDependencies:
-      webpack: 5.72.0
+      webpack: 5.72.0(@swc/core@1.7.39)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -6097,7 +6229,7 @@ snapshots:
 
   webpack-virtual-modules@0.4.6: {}
 
-  webpack@5.72.0:
+  webpack@5.72.0(@swc/core@1.7.39):
     dependencies:
       '@types/eslint-scope': 3.7.3
       '@types/estree': 0.0.51
@@ -6120,7 +6252,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 3.1.1
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.1(webpack@5.72.0)
+      terser-webpack-plugin: 5.3.1(@swc/core@1.7.39)(webpack@5.72.0(@swc/core@1.7.39))
       watchpack: 2.4.1
       webpack-sources: 3.2.3
     transitivePeerDependencies:
