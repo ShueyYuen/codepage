@@ -1,11 +1,17 @@
 <template>
   <div class="result-display">
-    <iframe id="result-show" frameborder="0" allow="fullscreen"
+    <iframe
+      id="result-show"
+      frameborder="0"
+      allow="fullscreen"
       sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
-      :srcdoc="srcdoc" name="result-show" :style="{ pointerEvents: props.interaction ? 'auto' : 'none' }"
-      ref="iframeElement"></iframe>
+      :srcdoc="srcdoc"
+      name="result-show"
+      :style="{ pointerEvents: props.interaction ? 'auto' : 'none' }"
+      ref="iframeElement"
+    ></iframe>
     <div class="console-output-panel" v-show="preferStore.console">
-      <button @click="handleClearConsole">{{ t('clearConsole') }}</button>
+      <button @click="handleClearConsole">{{ t("clearConsole") }}</button>
       <ul ref="consoleOut"></ul>
     </div>
   </div>
@@ -16,9 +22,10 @@ import { ref, onMounted, watch } from "vue";
 import { useDebounceFn } from "@vueuse/core";
 import bus from "@/utils/bus.js";
 import { usePreferStore } from "@/store/index.js";
-import { t } from '@/lang/index.js';
-import { getCurrentFormattedTime } from '@/utils/tool.js';
+import { t } from "@/lang/index.js";
+import { getCurrentFormattedTime } from "@/utils/tool.js";
 import { useResult } from "./result";
+import '@/utils/data-display.js';
 
 const srcdoc = ref("");
 const consoleOut = ref(null);
@@ -33,7 +40,7 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-})
+});
 
 const content = useResult();
 watch(content, debounceReloadView);
@@ -44,24 +51,33 @@ bus.on("hard-refresh", () => {
   window.frames["result-show"].location.reload();
 });
 
-window.addEventListener('message', (msg) => {
+window.addEventListener("message", (msg) => {
   const data = msg.data;
-  if (data.source !== 'result-show') {
+  if (data.source !== "result-show") {
     return;
   }
-  const logEntry = document.createElement('li');
+  const logEntry = document.createElement("li");
   logEntry.dataset.method = data.method;
 
-  const timeSpan = document.createElement('span');
+  const timeSpan = document.createElement("span");
   timeSpan.className = "time-span";
   timeSpan.textContent = getCurrentFormattedTime();
   logEntry.appendChild(timeSpan);
 
-  const contentSpan = document.createElement('span');
-  contentSpan.textContent = data.content;
-  logEntry.appendChild(contentSpan);
+  const element = document.createElement("console-display");
+  element.setAttribute("data", data.content);
 
-  consoleOut.value.appendChild(logEntry);
+
+  logEntry.appendChild(element);
+
+  const consoleElement = consoleOut.value;
+  if (!consoleElement) {
+    return;
+  }
+  if (consoleElement.childElementCount >= 1000) {
+    consoleElement.removeChild(consoleElement.firstChild);
+  }
+  consoleElement.appendChild(logEntry);
 });
 
 const handleClearConsole = () => (consoleOut.value.innerHTML = "");

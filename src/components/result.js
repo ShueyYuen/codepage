@@ -78,11 +78,15 @@ export function useResult() {
   return computed(
     () =>
       `<!DOCTYPE html>
-<html style="--theme-background:${preferStore.theme === "dark" ? "#1e1e1e" : "#fffffe"};">
+<html style="--theme-background:${
+        preferStore.theme === "dark" ? "#1e1e1e" : "#fffffe"
+      };">
 <head>
   ${codeStore.head}
   <!-- injected css -->
-  ${codeStore.cssLinks.map((v) => `<link rel="stylesheet" href="${v}"/>`).join("\n")}
+  ${codeStore.cssLinks
+    .map((v) => `<link rel="stylesheet" href="${v}"/>`)
+    .join("\n")}
   <!-- injected script -->
   ${codeStore.jsLinks.map((v) => `<script src="${v}"></script>`).join("\n")}
   <style>
@@ -92,6 +96,39 @@ export function useResult() {
 <body>
   <script>
   // This is injected for console;
+  function customStringify(obj) {
+    const seen = new Map();
+
+    function _stringify(value) {
+      if (value && typeof value === "object") {
+        if (seen.has(value)) {
+          return { $ref: seen.get(value) }; // 返回循环引用的标识符
+        }
+        const id = \`#\${seen.size}\`;
+        seen.set(value, id);
+        if (Array.isArray(value)) {
+          return value.map(_stringify); // 处理数组
+        }
+        const result = {};
+        for (const [key, val] of Object.entries(value)) {
+          result[key] = _stringify(val);
+        }
+        return { $id: id, ...result }; // 包含对象的唯一标识符
+      }
+      if (value && typeof value === "function") {
+        return {
+          $function: value.toString(),
+          $length: value.length,
+          $name: value.name,
+        };
+      }
+      if (value === undefined) {
+        return { $ref: "#undefined" }; // 处理 undefined
+      }
+      return value; // 直接返回非对象值
+    }
+    return JSON.stringify(_stringify(obj));
+  }
   ['log', 'warn', 'error', 'info'].forEach((method) => {
     const originMethod = console[method]; 
     console[method] = function (...message) {
@@ -99,7 +136,7 @@ export function useResult() {
       window.parent.postMessage({
         source: 'result-show',
         method,
-        content: message.join(' '),
+        content: customStringify(message),
       });
     };
   });
