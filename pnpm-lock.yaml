@@ -15,14 +15,14 @@ importers:
         specifier: 1.7.2
         version: 1.7.2
       emmet-monaco-es:
-        specifier: 5.4.0
-        version: 5.4.0(monaco-editor@0.52.0)
+        specifier: 5.5.0
+        version: 5.5.0(monaco-editor@0.52.2)
       mitt:
         specifier: 3.0.1
         version: 3.0.1
       monaco-editor:
-        specifier: 0.52.0
-        version: 0.52.0
+        specifier: 0.52.2
+        version: 0.52.2
       pinia:
         specifier: 2.1.7
         version: 2.1.7(vue@3.4.31)
@@ -56,7 +56,7 @@ importers:
         version: 12.2.0(less@4.2.0)(webpack@5.95.0(@swc/core@1.7.39))
       monaco-editor-webpack-plugin:
         specifier: 7.1.0
-        version: 7.1.0(monaco-editor@0.52.0)(webpack@5.95.0(@swc/core@1.7.39))
+        version: 7.1.0(monaco-editor@0.52.2)(webpack@5.95.0(@swc/core@1.7.39))
       webpack:
         specifier: 5.95.0
         version: 5.95.0(@swc/core@1.7.39)
@@ -1189,8 +1189,8 @@ packages:
   electron-to-chromium@1.5.45:
     resolution: {integrity: sha512-vOzZS6uZwhhbkZbcRyiy99Wg+pYFV5hk+5YaECvx0+Z31NR3Tt5zS6dze2OepT6PCTzVzT0dIJItti+uAW5zmw==}
 
-  emmet-monaco-es@5.4.0:
-    resolution: {integrity: sha512-IaazkBSyGEeB5OROqR5ORbrf4KOlJnzWJ1CKwo1n92z3MQbRKJ1CX/n3UaoVkdSAgGVRwNnTulsHQ5JWwj8Dvw==}
+  emmet-monaco-es@5.5.0:
+    resolution: {integrity: sha512-OJxfHJZevWtFJZHfkJUS4WG+erEoFjlUNXtOnXJXEBLKyFDHrpiEBp5hwnuPXvCM9gBjYlUm8tpfLA0Pmd0K5Q==}
     peerDependencies:
       monaco-editor: '>=0.22.0'
 
@@ -1895,8 +1895,8 @@ packages:
       monaco-editor: '>= 0.31.0'
       webpack: ^4.5.0 || 5.x
 
-  monaco-editor@0.52.0:
-    resolution: {integrity: sha512-OeWhNpABLCeTqubfqLMXGsqf6OmPU6pHM85kF3dhy6kq5hnhuVS1p3VrEW/XhWHc71P2tHyS5JFySD8mgs1crw==}
+  monaco-editor@0.52.2:
+    resolution: {integrity: sha512-GEQWEZmfkOGLdd3XK8ryrfWz3AIP8YymVXiPHEdewrUq7mh0qrKrfHLNCXcbB6sTnMLnOZ3ztSiKcciFUkIJwQ==}
 
   mrmime@2.0.0:
     resolution: {integrity: sha512-eu38+hdgojoyq63s+yTpN4XMBdt5l8HhMhc4VKLO9KM5caLIBvUm4thi7fFaxyTmCKeNnXZ5pAlBwCUnhA09uw==}
@@ -4232,10 +4232,10 @@ snapshots:
 
   electron-to-chromium@1.5.45: {}
 
-  emmet-monaco-es@5.4.0(monaco-editor@0.52.0):
+  emmet-monaco-es@5.5.0(monaco-editor@0.52.2):
     dependencies:
       emmet: 2.4.11
-      monaco-editor: 0.52.0
+      monaco-editor: 0.52.2
 
   emmet@2.4.11:
     dependencies:
@@ -4916,13 +4916,13 @@ snapshots:
 
   module-alias@2.2.3: {}
 
-  monaco-editor-webpack-plugin@7.1.0(monaco-editor@0.52.0)(webpack@5.95.0(@swc/core@1.7.39)):
+  monaco-editor-webpack-plugin@7.1.0(monaco-editor@0.52.2)(webpack@5.95.0(@swc/core@1.7.39)):
     dependencies:
       loader-utils: 2.0.4
-      monaco-editor: 0.52.0
+      monaco-editor: 0.52.2
       webpack: 5.95.0(@swc/core@1.7.39)
 
-  monaco-editor@0.52.0: {}
+  monaco-editor@0.52.2: {}
 
   mrmime@2.0.0: {}
 
