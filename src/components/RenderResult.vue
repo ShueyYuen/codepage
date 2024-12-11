@@ -66,6 +66,7 @@ window.addEventListener("message", (msg) => {
 
   const element = document.createElement("console-display");
   element.setAttribute("data", data.content);
+  element.setAttribute("method", data.method);
 
 
   logEntry.appendChild(element);
@@ -134,7 +135,7 @@ const handleClearConsole = () => (consoleOut.value.innerHTML = "");
       }
 
       &[data-method="error"] {
-        background-color: rgba(255, 17, 0, 0.3);
+        background-color: rgba(255, 17, 0, 0.35);
       }
 
       .time-span {

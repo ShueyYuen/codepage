@@ -100,7 +100,11 @@ export function useResult() {
     const seen = new Map();
 
     function _stringify(value) {
-      if (value && typeof value === "object") {
+      if (!value) {
+        return value;
+      }
+      const type = typeof value;
+      if (type === "object") {
         if (seen.has(value)) {
           return { $ref: seen.get(value) }; // 返回循环引用的标识符
         }
@@ -110,17 +114,20 @@ export function useResult() {
           return value.map(_stringify); // 处理数组
         }
         const result = {};
-        for (const [key, val] of Object.entries(value)) {
-          result[key] = _stringify(val);
-        }
+        Reflect.ownKeys(value).forEach(key => {
+          result[_stringify(key)] = _stringify(value[key]);
+        })
         return { $id: id, ...result }; // 包含对象的唯一标识符
       }
-      if (value && typeof value === "function") {
+      if (type === "function") {
         return {
           $function: value.toString(),
           $length: value.length,
           $name: value.name,
         };
+      }
+      if (type === "symbol") {
+        return \`\${value.toString()}$symbol\`; // 处理 Symbol
       }
       if (value === undefined) {
         return { $ref: "#undefined" }; // 处理 undefined
@@ -129,7 +136,7 @@ export function useResult() {
     }
     return JSON.stringify(_stringify(obj));
   }
-  ['log', 'warn', 'error', 'info'].forEach((method) => {
+  ['log', 'warn', 'error', 'info', 'table'].forEach((method) => {
     const originMethod = console[method]; 
     console[method] = function (...message) {
       originMethod.call(console, ...message);
