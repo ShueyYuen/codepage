@@ -61,7 +61,7 @@ class ConsoleDisplayElement extends HTMLElement {
 
   // 渲染初始结构
   render(data) {
-    this.data = (data = data || this.data);
+    this.data = data = data || this.data;
     const method = this.getAttribute("method");
     const stack = this.getAttribute("stack");
     if (!method || !stack || !data) {
@@ -153,10 +153,15 @@ th {
 }
 </style>
         `;
+
+    const pureString = data[0] && typeof data[0] === "string";
+    if (pureString) {
+      data = this.formatValue(data);
+    }
     stack
       .split("\n")
       .slice(2)
-      .map((v) => v.trim().slice(3))
+      .map((v) => v.trim().slice(3));
     if (method === "table") {
       const element = this.createTableElement(data);
       element && this.shadowRoot.appendChild(element);
@@ -164,11 +169,44 @@ th {
       narrowElement && this.shadowRoot.appendChild(narrowElement);
       return;
     }
-    const pureString = data[0] && typeof data[0] === "string";
     data.forEach((value) => {
       const element = this.createBaseElement(value, false, pureString);
       element && this.shadowRoot.appendChild(element);
     });
+  }
+
+  formatValue(data) {
+    let i = 0;
+    const result = [];
+    while (i < data.length) {
+      let item = data[i];
+      if (typeof item === "string") {
+        item = item.replace(/%[sdifo]/g, (match) => {
+          i++;
+          const nextItem = data[i];
+          const hasNextItem = i in data;
+          switch (match) {
+            case "%s":
+              return hasNextItem
+                ? nextItem
+                  ? nextItem.toString()
+                  : JSON.stringify(value) || "undefined"
+                : match;
+            case "%d":
+            case "%i":
+              return hasNextItem ? parseInt(nextItem) : match;
+            case "%f":
+              return hasNextItem ? parseFloat(nextItem) : match;
+            case "%o":
+              i--;
+              return hasNextItem ? "" : match;
+          }
+        });
+      }
+      result.push(item);
+      i++;
+    }
+    return result;
   }
 
   createBaseElement(value, narrow = false, pureString = false) {
@@ -183,7 +221,8 @@ th {
     const isSymbol = type === "symbol";
     if (type === "string" || isSymbol) {
       const strSpan = document.createElement("span");
-      strSpan.textContent = isSymbol || pureString ? value.toString() : `"${value}"`;
+      strSpan.textContent =
+        isSymbol || pureString ? value.toString() : `"${value}"`;
       strSpan.className = `item ${pureString && !isSymbol ? "" : "string"}`;
       return strSpan;
     }
@@ -350,7 +389,9 @@ th {
         });
         rows.forEach((row) => tbody.appendChild(row));
 
-        Array.from(tr.querySelectorAll(".toggle")).forEach((toggle) => toggle.textContent = "");
+        Array.from(tr.querySelectorAll(".toggle")).forEach(
+          (toggle) => (toggle.textContent = "")
+        );
         th.querySelector(".toggle").textContent = ascending ? "▼" : "▲";
         ascending = !ascending;
       });
@@ -364,7 +405,9 @@ th {
       indexProperty.forEach((prop) => {
         const isNotIndex = prop !== "(index)";
         const td = document.createElement("td");
-        const propertyElement = isNotIndex ? this.createBaseElement(item[prop]) : document.createTextNode(index);
+        const propertyElement = isNotIndex
+          ? this.createBaseElement(item[prop])
+          : document.createTextNode(index);
         propertyElement && td.appendChild(propertyElement);
         tr.appendChild(td);
       });
@@ -386,7 +429,7 @@ th {
     // TODO: 优化更新逻辑, 避免重复渲染
     if (oldValue !== newValue) {
       try {
-        if (name === 'data') {
+        if (name === "data") {
           const parsedData = customParse(newValue);
           if (!Array.isArray(parsedData)) {
             throw new Error("Must provide an array of objects");
