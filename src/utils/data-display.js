@@ -62,6 +62,11 @@ class ConsoleDisplayElement extends HTMLElement {
   // 渲染初始结构
   render(data) {
     this.data = (data = data || this.data);
+    const method = this.getAttribute("method");
+    const stack = this.getAttribute("stack");
+    if (!method || !stack || !data) {
+      return;
+    }
     this.shadowRoot.innerHTML = `
 <style>
 :host {
@@ -105,8 +110,14 @@ li {
 .function-symbol {
     color: #d45831;
 }
+.class-symbol {
+    color: #d4653d;
+}
 .key {
     color: #79aaf8;
+}
+.key.length-key {
+    opacity: 0.6;
 }
 .toggle {
     cursor: pointer;
@@ -142,7 +153,10 @@ th {
 }
 </style>
         `;
-    const method = this.getAttribute("method");
+    stack
+      .split("\n")
+      .slice(2)
+      .map((v) => v.trim().slice(3))
     if (method === "table") {
       const element = this.createTableElement(data);
       element && this.shadowRoot.appendChild(element);
@@ -184,13 +198,18 @@ th {
     if (type === "function") {
       const funcSpan = document.createElement("span");
       let functionString = value.toString();
-      const ifFunctionDefined = functionString.startsWith("function");
-      if (ifFunctionDefined) {
+      if (functionString.startsWith("function")) {
         const fSpan = document.createElement("span");
         fSpan.textContent = "ƒ";
         fSpan.className = "function-symbol";
         funcSpan.appendChild(fSpan);
         functionString = functionString.replace(/^function/, "");
+      } else if (functionString.startsWith("class")) {
+        const classSpan = document.createElement("span");
+        classSpan.textContent = "class";
+        classSpan.className = "class-symbol";
+        funcSpan.appendChild(classSpan);
+        functionString = functionString.replace(/^class/, "");
       }
 
       funcSpan.appendChild(document.createTextNode(functionString));
@@ -275,8 +294,10 @@ th {
         const li = document.createElement("li");
 
         const keySpan = document.createElement("span");
-        keySpan.className = "key";
-        keySpan.textContent = key.toString();
+        const content = key.toString();
+        const isArrayLength = isObjArray && content === "length";
+        keySpan.className = `key ${isArrayLength ? "length-key" : ""}`;
+        keySpan.textContent = content;
         li.appendChild(keySpan);
         li.appendChild(document.createTextNode(": "));
 
@@ -301,32 +322,54 @@ th {
     const tr = document.createElement("tr");
 
     // Add index column header
-    const indexTh = document.createElement("th");
-    indexTh.textContent = "(index)";
-    tr.appendChild(indexTh);
-
-    properties.forEach((prop) => {
+    const indexProperty = ["(index)", ...properties];
+    indexProperty.forEach((prop) => {
       const th = document.createElement("th");
       th.textContent = prop.toString();
+      th.__property__ = prop;
+
+      const toggle = document.createElement("span");
+      toggle.className = "toggle";
+      th.appendChild(toggle);
       tr.appendChild(th);
     });
+
+    Array.from(tr.cells).forEach((th) => {
+      th.style.cursor = "pointer";
+      let ascending = true;
+      th.addEventListener("click", () => {
+        const rows = Array.from(tbody.querySelectorAll("tr"));
+        const isIndex = th.__property__ === "(index)";
+        rows.sort((rowA, rowB) => {
+          const [valueA, valueB] = [rowA, rowB].map((row) =>
+            isIndex ? row.__index__ : row.__inner__?.[th.__property__]
+          );
+          if (valueA < valueB) return ascending ? -1 : 1;
+          if (valueA > valueB) return ascending ? 1 : -1;
+          return 0;
+        });
+        rows.forEach((row) => tbody.appendChild(row));
+
+        Array.from(tr.querySelectorAll(".toggle")).forEach((toggle) => toggle.textContent = "");
+        th.querySelector(".toggle").textContent = ascending ? "▼" : "▲";
+        ascending = !ascending;
+      });
+    });
+
     thead.appendChild(tr);
     table.appendChild(thead);
 
     list.forEach((item, index) => {
       const tr = document.createElement("tr");
-
-      // Add index column data
-      const indexTd = document.createElement("td");
-      indexTd.textContent = index;
-      tr.appendChild(indexTd);
-
-      properties.forEach((prop) => {
+      indexProperty.forEach((prop) => {
+        const isNotIndex = prop !== "(index)";
         const td = document.createElement("td");
-        const propertyElement = this.createBaseElement(item[prop]);
+        const propertyElement = isNotIndex ? this.createBaseElement(item[prop]) : document.createTextNode(index);
         propertyElement && td.appendChild(propertyElement);
         tr.appendChild(td);
       });
+      tr.__inner__ = item;
+      tr.__index__ = index;
       tbody.appendChild(tr);
     });
     table.appendChild(tbody);
@@ -335,11 +378,12 @@ th {
 
   // 属性观察
   static get observedAttributes() {
-    return ["data", "method"];
+    return ["data", "method", "stack"];
   }
 
   // 当属性变化时更新组件
   attributeChangedCallback(name, oldValue, newValue) {
+    // TODO: 优化更新逻辑, 避免重复渲染
     if (oldValue !== newValue) {
       try {
         if (name === 'data') {

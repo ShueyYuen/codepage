@@ -142,6 +142,7 @@ export function useResult() {
       originMethod.call(console, ...message);
       window.parent.postMessage({
         source: 'result-show',
+        stack: new Error().stack,
         method,
         content: customStringify(message),
       });

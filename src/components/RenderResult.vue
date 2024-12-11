@@ -67,7 +67,7 @@ window.addEventListener("message", (msg) => {
   const element = document.createElement("console-display");
   element.setAttribute("data", data.content);
   element.setAttribute("method", data.method);
-
+  element.setAttribute("stack", data.stack);
 
   logEntry.appendChild(element);
 
