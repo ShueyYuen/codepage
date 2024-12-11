@@ -143,10 +143,10 @@ export function useResult() {
       window.parent.postMessage({
         source: 'result-show',
         stack: new Error().stack
-          .split("\n")
+          .split("\\n")
           .slice(2)
           .map((v) => v.trim().slice(3))
-          .join("\n"),
+          .join("\\n"),
         method,
         content: customStringify(message),
       });

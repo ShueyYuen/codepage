@@ -53,10 +53,73 @@ function customParse(json) {
   return _parse(obj);
 }
 
+const consoleDisplayStyles = new CSSStyleSheet();
+consoleDisplayStyles.replace(`
+:host {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  line-height: 1.5;
+  color: #e8e8e8;
+  font-family: Consolas, monospace;
+  padding: 16px;
+  border-radius: 8px;
+  overflow: auto;
+  max-height: 400px;
+}
+.item {
+  margin-right: 4px;
+  display: inline-block;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+li { margin: 4px 0; }
+.item.nil-value, .item .object .key { color: #fff6; }
+.item.string { color: #4fb2d3; }
+.item.number { color: #8e78f2; }
+.item.function {
+  font-style: italic;
+  white-space: pre-wrap;
+}
+.function-symbol { color: #d45831; }
+.class-symbol { color: #d4653d; }
+.key { color: #79aaf8; }
+.key.length-key { opacity: 0.6; }
+.toggle {
+  cursor: pointer;
+  color: #bbb;
+  user-select: none;
+  margin-right: 5px;
+}
+.closed > .toggle::before { content: "▶"; }
+.open > .toggle::before { content: "▼"; }
+.container {
+  display: inline-flex;
+  flex-direction: column;
+}
+.nested {
+  display: none;
+  margin-left: 12px;
+}
+.open > .container > .nested { display: block; }
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #444;
+  margin-top: 8px;
+}
+th { color: #fff4; }
+`);
+
 class ConsoleDisplayElement extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    const shadow = this.attachShadow({ mode: "open" });
+    shadow.adoptedStyleSheets = [consoleDisplayStyles];
   }
 
   // 渲染初始结构
@@ -67,92 +130,6 @@ class ConsoleDisplayElement extends HTMLElement {
     if (!method || !stack || !data) {
       return;
     }
-    this.shadowRoot.innerHTML = `
-<style>
-:host {
-    display: inline-flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    line-height: 1.5;
-    color: #e8e8e8;
-    font-family: Consolas, monospace;
-    padding: 16px;
-    border-radius: 8px;
-    overflow: auto;
-    max-height: 400px;
-}
-.item {
-    margin-right: 4px;
-    display: inline-block;
-}
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-li {
-    margin: 4px 0;
-}
-.item.nil-value, .item .object .key {
-    color: #fff6;
-}
-.item.string {
-    color: #4fb2d3;
-}
-.item.number {
-    color: #8e78f2;
-}
-.item.function {
-    font-style: italic;
-    white-space: pre-wrap;
-}
-.function-symbol {
-    color: #d45831;
-}
-.class-symbol {
-    color: #d4653d;
-}
-.key {
-    color: #79aaf8;
-}
-.key.length-key {
-    opacity: 0.6;
-}
-.toggle {
-    cursor: pointer;
-    color: #bbb;
-    user-select: none;
-    margin-right: 5px;
-}
-.closed > .toggle::before {
-    content: "▶";
-}
-.open > .toggle::before {
-    content: "▼";
-}
-.container {
-    display: inline-flex;
-    flex-direction: column;
-}
-.nested {
-    display: none;
-    margin-left: 12px;
-}
-.open > .container > .nested {
-    display: block;
-}
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    border: 1px solid #444;
-    margin-top: 8px;
-}
-th {
-    color: #fff4;
-}
-</style>
-        `;
 
     const pureString = data[0] && typeof data[0] === "string";
     if (pureString) {
