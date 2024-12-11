@@ -158,10 +158,6 @@ th {
     if (pureString) {
       data = this.formatValue(data);
     }
-    stack
-      .split("\n")
-      .slice(2)
-      .map((v) => v.trim().slice(3));
     if (method === "table") {
       const element = this.createTableElement(data);
       element && this.shadowRoot.appendChild(element);

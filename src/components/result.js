@@ -142,7 +142,11 @@ export function useResult() {
       originMethod.call(console, ...message);
       window.parent.postMessage({
         source: 'result-show',
-        stack: new Error().stack,
+        stack: new Error().stack
+          .split("\n")
+          .slice(2)
+          .map((v) => v.trim().slice(3))
+          .join("\n"),
         method,
         content: customStringify(message),
       });
