@@ -26,7 +26,6 @@ function customParse(json) {
         const func = function () {
           console.log("this is a mock function");
         };
-        func.name = value.$name || "anonymous";
         func.length = value.$length || 0;
         func.toString = () => value.$function;
         return func;
