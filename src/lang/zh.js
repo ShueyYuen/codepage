@@ -13,6 +13,8 @@ export default {
   gzip: "使用Gzip",
   gzipInfo:
     "受制于get请求在不同浏览器上的长度限制，不能通过url分享长代码，通过Gzip压缩代码，可以达到18%的压缩率。",
+  consoleInfo:
+    "由于实现方式问题，如果需要输出 Proxy 代理后的对象，可能导致日志不正确。",
   onlineSave: "在线保存",
   language: "语言",
   debounce: "防抖",

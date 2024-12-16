@@ -19,6 +19,9 @@
     <div class="setting-item">
       <div class="setting-panel__title">
         Console
+        <Tooltip :tips="t('consoleInfo')" position="right" :multiline="true" transform="10">
+          <Icons type="info-circle"></Icons>
+        </Tooltip>
       </div>
       <Radio type="switch" v-model="preferStore.console"></Radio>
     </div>

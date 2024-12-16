@@ -2,6 +2,66 @@ import { ref, watch, computed } from "vue";
 import { useCodeStore, usePreferStore } from "@/store/index.js";
 import loadJavaScript from "@/utils/load";
 
+const consoleInject = `<script>
+  // This is injected for console;
+  function customStringify(obj) {
+    const seen = new Map();
+
+    function _stringify(value) {
+      if (!value) {
+        return value;
+      }
+      const type = typeof value;
+      if (type === "object") {
+        if (seen.has(value)) {
+          return { $ref: seen.get(value) }; // 返回循环引用的标识符
+        }
+        const id = \`#\${seen.size}\`;
+        seen.set(value, id);
+        if (Array.isArray(value)) {
+          return value.map(_stringify); // 处理数组
+        }
+        const result = {};
+        Reflect.ownKeys(value).forEach(key => {
+          result[_stringify(key)] = _stringify(value[key]);
+        })
+        return { $id: id, ...result }; // 包含对象的唯一标识符
+      }
+      if (type === "function") {
+        return {
+          $function: value.toString(),
+          $length: value.length,
+          $name: value.name,
+        };
+      }
+      if (type === "symbol") {
+        return \`\${value.toString()}$symbol\`; // 处理 Symbol
+      }
+      if (value === undefined) {
+        return { $ref: "#undefined" }; // 处理 undefined
+      }
+      return value; // 直接返回非对象值
+    }
+    return JSON.stringify(_stringify(obj));
+  }
+  ['log', 'warn', 'error', 'info', 'table'].forEach((method) => {
+    const originMethod = console[method]; 
+    console[method] = function (...message) {
+      originMethod.call(console, ...message);
+      window.parent.postMessage({
+        source: 'result-show',
+        stack: new Error().stack
+          .split("\\n")
+          .slice(2)
+          .map((v) => v.trim().slice(3))
+          .join("\\n"),
+        method,
+        content: customStringify(message),
+      });
+    };
+  });
+  </script>`;
+
 export function useResult() {
   const codeStore = useCodeStore();
   const preferStore = usePreferStore();
@@ -94,65 +154,7 @@ export function useResult() {
   </style>
 </head>
 <body>
-  <script>
-  // This is injected for console;
-  function customStringify(obj) {
-    const seen = new Map();
-
-    function _stringify(value) {
-      if (!value) {
-        return value;
-      }
-      const type = typeof value;
-      if (type === "object") {
-        if (seen.has(value)) {
-          return { $ref: seen.get(value) }; // 返回循环引用的标识符
-        }
-        const id = \`#\${seen.size}\`;
-        seen.set(value, id);
-        if (Array.isArray(value)) {
-          return value.map(_stringify); // 处理数组
-        }
-        const result = {};
-        Reflect.ownKeys(value).forEach(key => {
-          result[_stringify(key)] = _stringify(value[key]);
-        })
-        return { $id: id, ...result }; // 包含对象的唯一标识符
-      }
-      if (type === "function") {
-        return {
-          $function: value.toString(),
-          $length: value.length,
-          $name: value.name,
-        };
-      }
-      if (type === "symbol") {
-        return \`\${value.toString()}$symbol\`; // 处理 Symbol
-      }
-      if (value === undefined) {
-        return { $ref: "#undefined" }; // 处理 undefined
-      }
-      return value; // 直接返回非对象值
-    }
-    return JSON.stringify(_stringify(obj));
-  }
-  ['log', 'warn', 'error', 'info', 'table'].forEach((method) => {
-    const originMethod = console[method]; 
-    console[method] = function (...message) {
-      originMethod.call(console, ...message);
-      window.parent.postMessage({
-        source: 'result-show',
-        stack: new Error().stack
-          .split("\\n")
-          .slice(2)
-          .map((v) => v.trim().slice(3))
-          .join("\\n"),
-        method,
-        content: customStringify(message),
-      });
-    };
-  });
-  </script>
+  ${preferStore.console ? consoleInject : ""}
   ${codeStore.html}
   <script>
     ${js.value}

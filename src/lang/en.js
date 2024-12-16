@@ -13,6 +13,8 @@ export default {
   gzip: "Gzip Enable",
   gzipInfo:
     "Subject to the length limit of get requests on different browsers, long codes cannot be shared through urls. By compressing codes with Gzip, a compression rate of 18% can be achieved.",
+  consoleInfo:
+    "Due to the implementation method, if you need to output the Proxy proxy object, it may cause incorrect logs.",
   language: "Language",
   debounce: "Debounce",
   operation: "Operation On",
