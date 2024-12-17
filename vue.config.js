@@ -1,3 +1,4 @@
+const path = require("path");
 const { defineConfig } = require("@vue/cli-service");
 const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 
@@ -10,6 +11,14 @@ module.exports = defineConfig({
     cache: { type: "filesystem" },
     module: {
       rules: [
+        {
+          test: /\.js$/,
+          use: [
+            {
+              loader: path.resolve(__dirname, "scripts/hard-inject.js"),
+            },
+          ],
+        },
         {
           test: /\.css$/,
           use: ["less-loader"],

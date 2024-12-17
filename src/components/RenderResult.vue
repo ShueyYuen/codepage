@@ -56,6 +56,10 @@ window.addEventListener("message", (msg) => {
   if (data.source !== "result-show") {
     return;
   }
+  if (data.method === "clear") {
+    handleClearConsole();
+    return;
+  }
   const logEntry = document.createElement("li");
   logEntry.dataset.method = data.method;
 

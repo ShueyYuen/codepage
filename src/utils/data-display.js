@@ -1,4 +1,6 @@
 const SYMBOL_REGEXP = /^Symbol\((.*)\)\$symbol$/;
+const PROXY_SYMBOL = Symbol("proxy");
+
 function customParse(json) {
   const obj = JSON.parse(json);
   const refs = new Map([["#undefined", undefined]]);
@@ -12,10 +14,16 @@ function customParse(json) {
       if (value.$ref) {
         return refs.get(value.$ref); // 处理循环引用
       }
+      if (value.$proxy) {
+        const data = _parse(value.$proxy) || [];
+        data[PROXY_SYMBOL] = true;
+        return data;
+      }
       if (value.$id) {
-        const result = Array.isArray(value) ? [] : {};
+        const isArray = value.$array;
+        const result = isArray ? [] : {};
         refs.set(value.$id, result);
-        for (const [key, val] of Object.entries(value)) {
+        for (const [key, val] of Object.entries(isArray || value)) {
           if (key !== "$id") {
             result[_parse(key)] = _parse(val);
           }
@@ -232,6 +240,7 @@ class ConsoleDisplayElement extends HTMLElement {
 
   createObjectElement(value, narrow) {
     const isObjArray = Array.isArray(value);
+    const isProxy = value[PROXY_SYMBOL] || false;
     if (narrow) {
       const narrowSpan = document.createElement("span");
       narrowSpan.textContent = isObjArray ? `Array(${value.length})` : "{...}";
@@ -251,7 +260,7 @@ class ConsoleDisplayElement extends HTMLElement {
 
     const inlineDc = document.createElement("span");
     inlineDc.className = `item ${isObjArray ? "array" : "object"}`;
-    if (isObjArray) {
+    if (isObjArray && !isProxy) {
       inlineDc.appendChild(document.createTextNode("["));
       value.forEach((val, index) => {
         const element = this.createBaseElement(val, true);
@@ -262,8 +271,10 @@ class ConsoleDisplayElement extends HTMLElement {
       });
       inlineDc.appendChild(document.createTextNode("]"));
     } else {
-      const keys = Reflect.ownKeys(value);
-      inlineDc.appendChild(document.createTextNode("{"));
+      const keys = Reflect.ownKeys(value)
+        .filter((key) => key !== PROXY_SYMBOL)
+        .filter((key) => !(isObjArray && key === "length"));
+      inlineDc.appendChild(document.createTextNode(isProxy ? `Proxy(${isObjArray ? 'Array' : 'Object'}) {` : "{"));
       keys.slice(0, 5).forEach((key, index) => {
         const val = value[key];
         const keySpan = document.createElement("span");
@@ -299,22 +310,24 @@ class ConsoleDisplayElement extends HTMLElement {
       if (ul.children.length !== 0) {
         return;
       }
-      Reflect.ownKeys(value).forEach((key) => {
-        const val = value[key];
-        const li = document.createElement("li");
+      Reflect.ownKeys(value)
+        .filter((key) => key !== PROXY_SYMBOL)
+        .forEach((key) => {
+          const val = value[key];
+          const li = document.createElement("li");
 
-        const keySpan = document.createElement("span");
-        const content = key.toString();
-        const isArrayLength = isObjArray && content === "length";
-        keySpan.className = `key ${isArrayLength ? "length-key" : ""}`;
-        keySpan.textContent = content;
-        li.appendChild(keySpan);
-        li.appendChild(document.createTextNode(": "));
+          const keySpan = document.createElement("span");
+          const content = key.toString();
+          const isArrayLength = isObjArray && content === "length";
+          keySpan.className = `key ${isArrayLength ? "length-key" : ""}`;
+          keySpan.textContent = content;
+          li.appendChild(keySpan);
+          li.appendChild(document.createTextNode(": "));
 
-        const valueElement = this.createBaseElement(val);
-        li.appendChild(valueElement);
-        ul.appendChild(li);
-      });
+          const valueElement = this.createBaseElement(val);
+          li.appendChild(valueElement);
+          ul.appendChild(li);
+        });
     });
 
     return objSpan;
