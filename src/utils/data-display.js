@@ -68,6 +68,7 @@ consoleDisplayStyles.replace(`
   align-items: flex-start;
   line-height: 1.5;
   color: #e8e8e8;
+  font-size: 14px;
   font-family: Consolas, monospace;
   padding: 16px;
   border-radius: 8px;
@@ -91,6 +92,7 @@ li { margin: 4px 0; }
   font-style: italic;
   white-space: pre-wrap;
 }
+.item.has-style { margin-right: unset; }
 .function-symbol { color: #d45831; }
 .class-symbol { color: #d4653d; }
 .key { color: #79aaf8; }
@@ -155,37 +157,63 @@ class ConsoleDisplayElement extends HTMLElement {
   }
 
   formatValue(data) {
+    const parseString = (value) => value ? value.toString() : JSON.stringify(value) || 'undefined';
     let i = 0;
     const result = [];
     while (i < data.length) {
       let item = data[i];
       if (typeof item === "string") {
-        item = item.replace(/%[sdifo]/g, (match) => {
-          i++;
-          const nextItem = data[i];
-          const hasNextItem = i in data;
-          switch (match) {
-            case "%s":
-              return hasNextItem
-                ? nextItem
-                  ? nextItem.toString()
-                  : JSON.stringify(value) || "undefined"
-                : match;
-            case "%d":
-            case "%i":
-              return hasNextItem ? parseInt(nextItem) : match;
-            case "%f":
-              return hasNextItem ? parseFloat(nextItem) : match;
-            case "%o":
-              i--;
-              return hasNextItem ? "" : match;
+        let j = 0, str = "";
+        while (j < item.length) {
+          const char = item[j];
+          j++;
+          if (char !== "%") {
+            str += char === " " ? "&nbsp;" : char;
+            continue;
           }
-        });
+          const nextChar = item[j];
+          if (!'sdfioOc'.includes(nextChar)) {
+            str += char;
+            continue;
+          }
+          i++, j++;
+          const hasNextItem = i in data;
+          if (!hasNextItem) {
+            str += `%${nextChar}`;
+            continue;
+          }
+          const nextItem = data[i];
+          switch (nextChar) {
+            case "s":
+              str += parseString(nextItem);
+              break;
+            case "d":
+            case "i":
+              str += parseInt(nextItem);
+              break;
+            case "f":
+              str += parseFloat(nextItem);
+              break;
+            case "o":
+            case "O":
+              result.push(str);
+              const hasStyle = str.includes("###style###");
+              const [style] = hasStyle ? str.split("###style###") : [""];
+              str = `${style}###style###`;
+              result.push(nextItem);
+              break;
+            case "c":
+              result.push(str);
+              str = `${parseString(nextItem)}###style###`;
+              break;
+          }
+        }
+        item = str;
       }
       result.push(item);
       i++;
     }
-    return result;
+    return result.filter(Boolean);
   }
 
   createBaseElement(value, narrow = false, pureString = false) {
@@ -200,9 +228,19 @@ class ConsoleDisplayElement extends HTMLElement {
     const isSymbol = type === "symbol";
     if (type === "string" || isSymbol) {
       const strSpan = document.createElement("span");
-      strSpan.textContent =
-        isSymbol || pureString ? value.toString() : `"${value}"`;
-      strSpan.className = `item ${pureString && !isSymbol ? "" : "string"}`;
+      const pureStringString = pureString && !isSymbol;
+      strSpan.className = `item ${pureStringString ? "" : "string"}`;
+      if (pureStringString) {
+        const hasStyle = value.includes("###style###");
+        const [style, content] = hasStyle
+          ? value.split("###style###")
+          : ["", value];
+        strSpan.innerHTML = content;
+        strSpan.style = style;
+        strSpan.classList.toggle("has-style", hasStyle);
+      } else {
+        strSpan.textContent = isSymbol ? value.toString() : `"${value}"`;
+      }
       return strSpan;
     }
 
