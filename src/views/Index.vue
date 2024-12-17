@@ -142,7 +142,16 @@ const handleSplitResized = () => isDragging.value = false;
 const handleResultDownload = () => {
   const result = document.getElementById("result-show");
   const content = result.getAttribute("srcdoc");
-  download("index.html", content);
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(content, "text/html");
+  const scripts = doc.head.querySelectorAll("script");
+  Array.from(scripts).map((script) => {
+    if (script.id === "__hack-inject__") {
+      script.remove();
+    }
+  });
+  const modifiedContent = doc.documentElement.outerHTML;
+  download("index.html", modifiedContent);
 };
 </script>
 

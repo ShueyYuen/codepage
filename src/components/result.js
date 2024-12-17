@@ -2,7 +2,7 @@ import { ref, watch, computed } from "vue";
 import { useCodeStore, usePreferStore } from "@/store/index.js";
 import loadJavaScript from "@/utils/load";
 
-const consoleInject = `<script>
+const consoleInject = `<script id="__hack-inject__">
 __HARD_INJECT__(src/components/result-inject.js)
   </script>`;
 

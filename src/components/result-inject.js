@@ -1,5 +1,6 @@
 // 代理Proxy，用于标记代理对象
-((global) => {
+const proxyInner = {};
+((global, inner) => {
   const ProxyConstructor = global.Proxy;
   const proxyWeakMap = new WeakMap();
 
@@ -11,15 +12,15 @@
     proxyWeakMap.set(result, target);
     return result;
   }
-  markedProxy.isProxy = function (obj) {
+  inner.isProxy = function (obj) {
     return proxyWeakMap.has(obj);
   };
-  markedProxy.toRaw = function (obj) {
+  inner.toRaw = function (obj) {
     const result = proxyWeakMap.get(obj);
-    return result ? markedProxy.toRaw(result) : obj;
+    return result ? inner.toRaw(result) : obj;
   };
   global.Proxy = markedProxy;
-})(globalThis);
+})(globalThis, proxyInner);
 
 // This is injected for console;
 function customStringify(obj) {
@@ -40,8 +41,8 @@ function customStringify(obj) {
       if (seen.has(value)) {
         return { $ref: seen.get(value) }; // 返回循环引用的标识符
       }
-      if (Proxy.isProxy(value)) {
-        const raw = Proxy.toRaw(value);
+      if (proxyInner.isProxy(value)) {
+        const raw = proxyInner.toRaw(value);
         return {
           $proxy: _stringify(raw),
         }; // 返回代理对象
@@ -156,3 +157,21 @@ console.countReset = (label = "default") => {
     });
   }
 };
+
+window.addEventListener("error", (event) => {
+  parent.postMessage({
+    source: "result-show",
+    stack: getStack(),
+    method: "error",
+    content: customStringify([event.message]),
+  });
+});
+
+window.addEventListener("unhandledrejection", (event) => {
+  parent.postMessage({
+    source: "result-show",
+    stack: getStack(),
+    method: "error",
+    content: customStringify([event.reason.message]),
+  });
+});
