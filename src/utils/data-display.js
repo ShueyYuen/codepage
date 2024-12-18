@@ -39,7 +39,6 @@ function customParse(json) {
         return func;
       }
       if (value.$symbol) {
-        console.log(value.$symbol, Symbol.for(value.$symbol));
         return Symbol.for(value.$symbol);
       }
       if (Array.isArray(value)) {
