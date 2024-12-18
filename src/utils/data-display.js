@@ -1,5 +1,6 @@
 const SYMBOL_REGEXP = /^Symbol\((.*)\)\$symbol$/;
 const PROXY_SYMBOL = Symbol("proxy");
+const STYLE_SEPARATOR = "###style###";
 
 function customParse(json) {
   const obj = JSON.parse(json);
@@ -61,66 +62,7 @@ function customParse(json) {
 
 const consoleDisplayStyles = new CSSStyleSheet();
 consoleDisplayStyles.replace(`
-:host {
-  display: inline-flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  line-height: 1.5;
-  color: #e8e8e8;
-  font-size: 14px;
-  font-family: Consolas, monospace;
-  padding: 16px;
-  border-radius: 8px;
-  overflow: auto;
-  max-height: 400px;
-}
-.item {
-  margin-right: 4px;
-  display: inline-block;
-}
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-li { margin: 4px 0; }
-.item.nil-value, .item .object .key { color: #fff6; }
-.item.string { color: #4fb2d3; }
-.item.number { color: #8e78f2; }
-.item.function {
-  font-style: italic;
-  white-space: pre-wrap;
-}
-.item.has-style { margin-right: unset; }
-.function-symbol { color: #d45831; }
-.class-symbol { color: #d4653d; }
-.key { color: #79aaf8; }
-.key.length-key { opacity: 0.6; }
-.toggle {
-  cursor: pointer;
-  color: #bbb;
-  user-select: none;
-  margin-right: 5px;
-}
-.closed > .toggle::before { content: "▶"; }
-.open > .toggle::before { content: "▼"; }
-.container {
-  display: inline-flex;
-  flex-direction: column;
-}
-.nested {
-  display: none;
-  margin-left: 12px;
-}
-.open > .container > .nested { display: block; }
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  border: 1px solid #444;
-  margin-top: 8px;
-}
-th { color: #fff4; }
+__HARD_INJECT__(src/utils/data-display.css)
 `);
 
 class ConsoleDisplayElement extends HTMLElement {
@@ -197,14 +139,14 @@ class ConsoleDisplayElement extends HTMLElement {
             case "o":
             case "O":
               result.push(str);
-              const hasStyle = str.includes("###style###");
-              const [style] = hasStyle ? str.split("###style###") : [""];
-              str = `${style}###style###`;
+              const hasStyle = str.includes(STYLE_SEPARATOR);
+              const [style] = hasStyle ? str.split(STYLE_SEPARATOR) : [""];
+              str = `${style}${STYLE_SEPARATOR}`;
               result.push(nextItem);
               break;
             case "c":
               result.push(str);
-              str = `${parseString(nextItem)}###style###`;
+              str = `${parseString(nextItem)}${STYLE_SEPARATOR}`;
               break;
           }
         }
@@ -231,9 +173,9 @@ class ConsoleDisplayElement extends HTMLElement {
       const pureStringString = pureString && !isSymbol;
       strSpan.className = `item ${pureStringString ? "" : "string"}`;
       if (pureStringString) {
-        const hasStyle = value.includes("###style###");
+        const hasStyle = value.includes(STYLE_SEPARATOR);
         const [style, content] = hasStyle
-          ? value.split("###style###")
+          ? value.split(STYLE_SEPARATOR)
           : ["", value];
         strSpan.innerHTML = content;
         strSpan.style = style;

@@ -1,9 +1,7 @@
 // 代理Proxy，用于标记代理对象
-const proxyInner = {};
-((global, inner) => {
+const proxyInner = ((global, inner) => {
   const ProxyConstructor = global.Proxy;
   const proxyWeakMap = new WeakMap();
-
   function markedProxy(target, handler) {
     if (!new.target) {
       throw new TypeError("Constructor Proxy requires 'new'");
@@ -12,15 +10,17 @@ const proxyInner = {};
     proxyWeakMap.set(result, target);
     return result;
   }
-  inner.isProxy = function (obj) {
-    return proxyWeakMap.has(obj);
-  };
-  inner.toRaw = function (obj) {
-    const result = proxyWeakMap.get(obj);
-    return result ? inner.toRaw(result) : obj;
-  };
   global.Proxy = markedProxy;
-})(globalThis, proxyInner);
+  return {
+    isProxy: function (obj) {
+      return proxyWeakMap.has(obj);
+    },
+    toRaw: function (obj) {
+      const result = proxyWeakMap.get(obj);
+      return result ? this.toRaw(result) : obj;
+    },
+  };
+})(globalThis);
 
 // This is injected for console;
 function customStringify(obj) {
