@@ -1,29 +1,37 @@
 {
   "name": "codepage",
-  "version": "1.0.5",
+  "version": "1.0.0",
+  "description": "这是一个基于 Monaco Editor 和 Web Components 构建的在线项目预览编辑器。它允许用户创建和编辑多种类型的文件（HTML、CSS、JavaScript、TypeScript、SCSS、LESS），并实时预览结果。",
+  "main": "dist/server.js",
+  "private": true,
   "scripts": {
-    "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "webpack",
+    "dev": "NODE_ENV=development webpack serve --mode development",
+    "start": "webpack serve"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShueyYuen/codepage.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShueyYuen/codepage/issues"
+  },
+  "homepage": "https://github.com/ShueyYuen/codepage#readme",
   "dependencies": {
-    "@vueuse/core": "10.11.0",
-    "axios": "1.7.2",
-    "mitt": "3.0.1",
-    "emmet-monaco-es": "5.5.0",
-    "monaco-editor": "0.52.2",
-    "pinia": "2.1.7",
-    "splitpanes": "3.1.5",
-    "vue": "3.4.31",
-    "vue-i18n": "9.13.1",
-    "vue-router": "4.4.0"
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
-    "@swc/core": "1.7.39",
-    "@vue/cli-plugin-router": "5.0.8",
-    "@vue/cli-service": "5.0.8",
-    "less": "4.2.0",
-    "less-loader": "12.2.0",
-    "monaco-editor-webpack-plugin": "7.1.0",
-    "webpack": "5.95.0"
+    "@types/node": "^22.15.18",
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.3",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.2",
+    "ts-node": "^10.9.2",
+    "webpack": "^5.99.8",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.1"
   }
 }

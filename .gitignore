@@ -1,6 +1,2 @@
-.env
-.env.build
-_gen
-dist/**
-node_modules/**
-stats.html
+node_modules
+dist
